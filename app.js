@@ -123,7 +123,7 @@ function initializeApp() {
     setupInputFormatting();
     
     console.log('🚀 Portal Kelulusan initialized successfully!');
-    console.log('💡 Test NIPD: 2425.1.0001, 2425.1.0002, etc.');
+    console.log('💡 Test NIPD: 2425.1.0001, 2425.1.0002, dst.');
 }
 
 // ========================================
@@ -187,6 +187,13 @@ async function handleFormSubmit(e) {
         return;
     }
     
+    // Check NIPD format (should be like 2425.1.0001)
+    const nipdFormat = /^\d{4}\.\d\.\d{4}$/;
+    if (!nipdFormat.test(nipd)) {
+        showError('⚠️ Format NIPD salah bro! Harusnya: TAPEL.SEMESTER.NO_URUT (cth: 2425.1.0001)');
+        return;
+    }
+    
     // Show loading
     showLoading();
     
@@ -246,7 +253,7 @@ function showResult(student) {
     } else {
         // Customize message based on status
         if (student.status.toUpperCase() === 'LULUS') {
-            congratsMessage.innerHTML = '🎉 Selamat! Kamu telah dinyatakan LULUS 🎉';
+            congratsMessage.innerHTML = `✨ Selamat kepada <strong>${student.nama}</strong> dengan NIPD <strong>${student.nipd}</strong> kelas <strong>${student.kelas || '-'}</strong> jurusan <strong>${student.jurusan}</strong> yang telah dinyatakan <strong>LULUS</strong>! 🎉<br><br>🚀 Sukses selalu di perjalanan berikutnya, ya!`;
             congratsMessage.style.color = 'var(--cyber-success)';
         } else {
             congratsMessage.innerHTML = '⏳ Status kelulusan masih dalam proses';

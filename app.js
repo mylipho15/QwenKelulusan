@@ -9,77 +9,12 @@
  */
 
 // ========================================
-// SAMPLE DATA (Simulasi Database)
+// DATA WILL BE LOADED FROM EXTERNAL FILE
 // ========================================
-// Dalam implementasi nyata, data ini dapat dimuat dari file eksternal
-// seperti data.json, data.csv, atau data.xlsx
+// Data will be loaded from data.json, data.csv, or data.js
+// No hardcoded sample data here
 
-const studentData = [
-    {
-        nipd: "2425.1.0001",
-        nama: "Ahmad Fauzi",
-        kelas: "XII Keperawatan 1",
-        jurusan: "Keperawatan",
-        tahunAjaran: "2024/2025",
-        status: "LULUS"
-    },
-    {
-        nipd: "2425.1.0002",
-        nama: "Siti Nurhaliza",
-        kelas: "XII Farmasi 1",
-        jurusan: "Farmasi",
-        tahunAjaran: "2024/2025",
-        status: "LULUS"
-    },
-    {
-        nipd: "2425.1.0003",
-        nama: "Budi Santoso",
-        kelas: "XII TLM 1",
-        jurusan: "Teknologi Laboratorium Medik",
-        tahunAjaran: "2024/2025",
-        status: "LULUS"
-    },
-    {
-        nipd: "2425.1.0004",
-        nama: "Dewi Lestari",
-        kelas: "XII Keperawatan 2",
-        jurusan: "Keperawatan",
-        tahunAjaran: "2024/2025",
-        status: "LULUS"
-    },
-    {
-        nipd: "2425.1.0005",
-        nama: "Eko Prasetyo",
-        kelas: "XII Farmasi 2",
-        jurusan: "Farmasi",
-        tahunAjaran: "2024/2025",
-        status: "LULUS"
-    },
-    {
-        nipd: "2425.1.0006",
-        nama: "Fira Amelia",
-        kelas: "XII TLM 2",
-        jurusan: "Teknologi Laboratorium Medik",
-        tahunAjaran: "2024/2025",
-        status: "LULUS"
-    },
-    {
-        nipd: "2425.1.0007",
-        nama: "Gilang Ramadhan",
-        kelas: "XII Keperawatan 3",
-        jurusan: "Keperawatan",
-        tahunAjaran: "2024/2025",
-        status: "LULUS"
-    },
-    {
-        nipd: "2425.1.0008",
-        nama: "Hana Pertiwi",
-        kelas: "XII Farmasi 3",
-        jurusan: "Farmasi",
-        tahunAjaran: "2024/2025",
-        status: "LULUS"
-    }
-];
+let studentData = []; // Will be populated from external file
 
 // ========================================
 // DOM ELEMENTS
@@ -211,16 +146,16 @@ async function handleFormSubmit(e) {
 }
 
 function findStudent(nipd) {
-    // Search in local data
+    // Search in studentData (which is loaded from external file)
+    if (!studentData || studentData.length === 0) {
+        console.log('⚠️ Data belum dimuat!');
+        return null;
+    }
+    
     const found = studentData.find(s => s.nipd === nipd);
     
     if (found) {
         return found;
-    }
-    
-    // Try to search in external data if loaded
-    if (window.externalStudentData) {
-        return window.externalStudentData.find(s => s.nipd === nipd);
     }
     
     return null;
@@ -244,21 +179,15 @@ function showResult(student) {
     studentMajor.textContent = student.jurusan;
     studentYear.textContent = student.tahunAjaran;
     studentStatus.textContent = student.status;
+    studentClass.textContent = student.kelas || '-';
     
-    // Check if student exists in sample data and customize message
-    const sampleStudent = studentData.find(s => s.nipd === student.nipd);
-    if (sampleStudent) {
+    // Customize message based on status (all students in data are considered found)
+    if (student.status.toUpperCase() === 'LULUS') {
         congratsMessage.innerHTML = `✨ Selamat kepada <strong>${student.nama}</strong> dengan NIPD <strong>${student.nipd}</strong> kelas <strong>${student.kelas || '-'}</strong> jurusan <strong>${student.jurusan}</strong> yang telah dinyatakan <strong>LULUS</strong>! 🎉<br><br>🚀 Sukses selalu di perjalanan berikutnya, ya!`;
         congratsMessage.style.color = 'var(--cyber-success)';
     } else {
-        // Customize message based on status
-        if (student.status.toUpperCase() === 'LULUS') {
-            congratsMessage.innerHTML = `✨ Selamat kepada <strong>${student.nama}</strong> dengan NIPD <strong>${student.nipd}</strong> kelas <strong>${student.kelas || '-'}</strong> jurusan <strong>${student.jurusan}</strong> yang telah dinyatakan <strong>LULUS</strong>! 🎉<br><br>🚀 Sukses selalu di perjalanan berikutnya, ya!`;
-            congratsMessage.style.color = 'var(--cyber-success)';
-        } else {
-            congratsMessage.innerHTML = '⏳ Status kelulusan masih dalam proses';
-            congratsMessage.style.color = 'var(--cyber-warning)';
-        }
+        congratsMessage.innerHTML = '⏳ Status kelulusan masih dalam proses';
+        congratsMessage.style.color = 'var(--cyber-warning)';
     }
     
     resultSection.classList.remove('d-none');
@@ -332,12 +261,12 @@ function validateInput(e) {
 function setupInputFormatting() {
     // Auto-format NIPD input (optional: add dashes every 4 digits)
     nipdInput.addEventListener('focus', () => {
-        nipdInput.placeholder = 'Masukkan NIPD...';
+        nipdInput.placeholder = '2425.1.0001';
     });
     
     nipdInput.addEventListener('blur', () => {
         if (!nipdInput.value) {
-            nipdInput.placeholder = 'Contoh: 2425.1.0001';
+            nipdInput.placeholder = '2425.1.0001';
         }
     });
 }
@@ -369,16 +298,20 @@ async function loadExternalData() {
         
         if (response.ok) {
             const data = await response.json();
+            studentData = data; // Set the global studentData variable
             window.externalStudentData = data;
             console.log(`✅ Loaded ${data.length} students from data.json`);
             
             // Update UI to show data is loaded
             showDataLoadedNotification(data.length);
+        } else {
+            throw new Error('Failed to load data.json');
         }
     } catch (error) {
-        // data.json not found, use sample data
-        console.log('ℹ️ Using sample data (data.json not found)');
-        console.log('💡 Create a data.json file to load real student data');
+        // data.json not found or failed to load, show error
+        console.log('⚠️ Failed to load data.json. Please ensure the file exists and is properly formatted.');
+        console.log('💡 Check console for details.');
+        showError('⚠️ Gagal memuat data siswa. Pastikan file data.json ada dan formatnya bener!');
     }
 }
 

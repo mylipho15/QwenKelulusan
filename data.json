@@ -1,72 +1,66 @@
 [
     {
-        "nipd": "1234567890",
+        "nipd": "2425.1.0001",
         "nama": "Ahmad Fauzi",
+        "kelas": "XII Keperawatan 1",
         "jurusan": "Keperawatan",
-        "tahunAjaran": "2023/2024",
+        "tahunAjaran": "2024/2025",
         "status": "LULUS"
     },
     {
-        "nipd": "2345678901",
+        "nipd": "2425.1.0002",
         "nama": "Siti Nurhaliza",
+        "kelas": "XII Farmasi 1",
         "jurusan": "Farmasi",
-        "tahunAjaran": "2023/2024",
+        "tahunAjaran": "2024/2025",
         "status": "LULUS"
     },
     {
-        "nipd": "3456789012",
+        "nipd": "2425.1.0003",
         "nama": "Budi Santoso",
+        "kelas": "XII TLM 1",
         "jurusan": "Teknologi Laboratorium Medik",
-        "tahunAjaran": "2023/2024",
+        "tahunAjaran": "2024/2025",
         "status": "LULUS"
     },
     {
-        "nipd": "4567890123",
+        "nipd": "2425.1.0004",
         "nama": "Dewi Lestari",
+        "kelas": "XII Keperawatan 2",
         "jurusan": "Keperawatan",
-        "tahunAjaran": "2023/2024",
+        "tahunAjaran": "2024/2025",
         "status": "LULUS"
     },
     {
-        "nipd": "5678901234",
+        "nipd": "2425.1.0005",
         "nama": "Eko Prasetyo",
+        "kelas": "XII Farmasi 2",
         "jurusan": "Farmasi",
-        "tahunAjaran": "2023/2024",
+        "tahunAjaran": "2024/2025",
         "status": "LULUS"
     },
     {
-        "nipd": "6789012345",
+        "nipd": "2425.1.0006",
         "nama": "Fira Amelia",
+        "kelas": "XII TLM 2",
         "jurusan": "Teknologi Laboratorium Medik",
-        "tahunAjaran": "2023/2024",
+        "tahunAjaran": "2024/2025",
         "status": "LULUS"
     },
     {
-        "nipd": "7890123456",
+        "nipd": "2425.1.0007",
         "nama": "Gilang Ramadhan",
+        "kelas": "XII Keperawatan 3",
         "jurusan": "Keperawatan",
-        "tahunAjaran": "2023/2024",
+        "tahunAjaran": "2024/2025",
         "status": "LULUS"
     },
     {
-        "nipd": "8901234567",
+        "nipd": "2425.1.0008",
         "nama": "Hana Pertiwi",
+        "kelas": "XII Farmasi 3",
         "jurusan": "Farmasi",
-        "tahunAjaran": "2023/2024",
-        "status": "LULUS"
-    },
-    {
-        "nipd": "9012345678",
-        "nama": "Indra Kusuma",
-        "jurusan": "Keperawatan",
-        "tahunAjaran": "2023/2024",
-        "status": "LULUS"
-    },
-    {
-        "nipd": "0123456789",
-        "nama": "Jihan Kamila",
-        "jurusan": "Farmasi",
-        "tahunAjaran": "2023/2024",
+        "tahunAjaran": "2024/2025",
         "status": "LULUS"
     }
 ]

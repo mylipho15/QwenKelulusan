@@ -1,11 +1,9 @@
-nipd,nama,jurusan,tahunAjaran,status
-1234567890,Ahmad Fauzi,Keperawatan,2023/2024,LULUS
-2345678901,Siti Nurhaliza,Farmasi,2023/2024,LULUS
-3456789012,Budi Santoso,Teknologi Laboratorium Medik,2023/2024,LULUS
-4567890123,Dewi Lestari,Keperawatan,2023/2024,LULUS
-5678901234,Eko Prasetyo,Farmasi,2023/2024,LULUS
-6789012345,Fira Amelia,Teknologi Laboratorium Medik,2023/2024,LULUS
-7890123456,Gilang Ramadhan,Keperawatan,2023/2024,LULUS
-8901234567,Hana Pertiwi,Farmasi,2023/2024,LULUS
-9012345678,Indra Kusuma,Keperawatan,2023/2024,LULUS
-0123456789,Jihan Kamila,Farmasi,2023/2024,LULUS
+nipd,nama,kelas,jurusan,tahunAjaran,status
+2425.1.0001,Ahmad Fauzi,XII Keperawatan 1,Keperawatan,2024/2025,LULUS
+2425.1.0002,Siti Nurhaliza,XII Farmasi 1,Farmasi,2024/2025,LULUS
+2425.1.0003,Budi Santoso,XII TLM 1,Teknologi Laboratorium Medik,2024/2025,LULUS
+2425.1.0004,Dewi Lestari,XII Keperawatan 2,Keperawatan,2024/2025,LULUS
+2425.1.0005,Eko Prasetyo,XII Farmasi 2,Farmasi,2024/2025,LULUS
+2425.1.0006,Fira Amelia,XII TLM 2,Teknologi Laboratorium Medik,2024/2025,LULUS
+2425.1.0007,Gilang Ramadhan,XII Keperawatan 3,Keperawatan,2024/2025,LULUS
+2425.1.0008,Hana Pertiwi,XII Farmasi 3,Farmasi,2024/2025,LULUS

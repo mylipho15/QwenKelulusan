@@ -1,5 +1,5 @@
-```
-# Source: app.js, data.json, index.html
-# No build artifacts, dependencies, or temp files detected
-# Keeping .gitignore empty as per rules
+(data.csv is a data file, not a build artifact, dependency, or temporary file - it should not be added to .gitignore)
+
+```csv
+
 ```

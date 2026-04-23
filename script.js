@@ -566,16 +566,13 @@ function initNativeAudioPlayer() {
         updateAudioButtonState(false);
     });
     
-    // Click handler for audio button
+    // Click handler for audio button - Pure HTML5 toggle
     nativeAudioPlayer.controlBtn.addEventListener('click', toggleNativeAudio);
     
-    // Try to autoplay on first user interaction anywhere on page
+    // Setup autoplay on first user interaction anywhere on page
     setupNativeAutoplay();
     
-    // Initial attempt to play
-    playNativeAudio();
-    
-    console.log('🎵 Native audio player initialized');
+    console.log('🎵 Native HTML5 Audio Player initialized');
 }
 
 /**
@@ -625,13 +622,13 @@ function toggleNativeAudio(e) {
 }
 
 /**
- * Play audio with error handling
+ * Play audio with error handling - Pure HTML5 Native Player
  */
 function playNativeAudio() {
     if (!nativeAudioPlayer.audio) return;
     
-    // Reset and reload to ensure fresh state
-    nativeAudioPlayer.audio.currentTime = 0;
+    // Don't reset currentTime if already playing from middle
+    // Only reset if we want to restart from beginning
     
     const playPromise = nativeAudioPlayer.audio.play();
     
@@ -639,11 +636,11 @@ function playNativeAudio() {
         playPromise.then(() => {
             nativeAudioPlayer.isPlaying = true;
             updateAudioButtonState(true);
-            showAudioNotification('🎵 Music Started', 'success');
-            console.log('▶️ Audio playing');
+            console.log('▶️ Audio playing - HTML5 Native Player active');
         }).catch(error => {
-            console.warn('⚠️ Autoplay prevented:', error.message);
-            // Update button to show muted state but don't show error
+            console.warn('⚠️ Playback requires user interaction:', error.message);
+            // Browser blocked autoplay - this is expected behavior
+            // User must click the audio button manually
             updateAudioButtonState(false);
             nativeAudioPlayer.controlBtn.title = 'Click to play music';
         });
@@ -651,7 +648,7 @@ function playNativeAudio() {
 }
 
 /**
- * Pause audio
+ * Pause audio - Pure HTML5 Native Player
  */
 function pauseNativeAudio() {
     if (!nativeAudioPlayer.audio) return;
@@ -659,8 +656,7 @@ function pauseNativeAudio() {
     nativeAudioPlayer.audio.pause();
     nativeAudioPlayer.isPlaying = false;
     updateAudioButtonState(false);
-    showAudioNotification('⏸️ Music Paused', 'info');
-    console.log('⏸️ Audio paused');
+    console.log('⏸️ Audio paused - HTML5 Native Player');
 }
 
 /**

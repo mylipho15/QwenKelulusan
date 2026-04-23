@@ -1,1 +1,26 @@
-Nothing should be ignored since only source files (HTML and JS) are being modified without any build artifacts, dependencies, or temporary files in the changes.
+# Audio test files
+test_audio.html
+test_audio_wav.html
+audio/test_tone.wav
+
+# Environment and temporary files
+.env
+.env.local
+*.tmp
+*.log
+
+# Editors
+.vscode/
+.idea/
+
+# Dependencies
+node_modules/
+venv/
+.venv/
+__pycache__/
+.mypy_cache/
+.pytest_cache/
+dist/
+build/
+target/
+.gradle/

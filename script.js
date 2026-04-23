@@ -527,10 +527,31 @@ const audioControl = {
         // Set initial volume (30% to not be too loud)
         this.bgMusic.volume = 0.3;
         
-        // Add click event listener
-        this.audioBtn.addEventListener('click', () => this.toggleAudio());
+        // Restore playback state from sessionStorage
+        const savedState = sessionStorage.getItem('bgmPlaying');
+        const wasPlaying = savedState === 'true';
         
-        // Try to autoplay on first user interaction
+        // Save state when page unloads or before navigation
+        window.addEventListener('beforeunload', () => {
+            sessionStorage.setItem('bgmPlaying', this.isPlaying);
+        });
+        
+        // Try to play on load (default behavior)
+        // Will work if user has interacted with the site before
+        if (wasPlaying) {
+            this.playAudio();
+        } else {
+            // First time visitor - try autoplay anyway
+            this.playAudio();
+        }
+        
+        // Add click event listener for manual toggle
+        this.audioBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.toggleAudio();
+        });
+        
+        // Fallback: Try to autoplay on first user interaction anywhere on page
         this.setupAutoplay();
         
         console.log('🎵 Audio control initialized');

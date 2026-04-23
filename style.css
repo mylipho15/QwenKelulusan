@@ -256,7 +256,6 @@ body {
     top: 1rem;
     left: 1rem;
     z-index: 1002;
-    margin: auto;
 }
 
 .mobile-menu-toggle:hover {
@@ -903,7 +902,6 @@ body {
 
     /* Adjust header content to prevent overlap with floated hamburger button */
     .header-content {
-        justify-content: center;
         padding-left: 4rem;
     }
 }

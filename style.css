@@ -241,7 +241,7 @@ body {
     font-size: 1rem;
 }
 
-/* Mobile Menu Toggle */
+/* Mobile Menu Toggle - Floated Button */
 .mobile-menu-toggle {
     display: none;
     background: transparent;
@@ -252,6 +252,11 @@ body {
     cursor: pointer;
     font-size: 1.2rem;
     transition: all 0.3s ease;
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 1001;
+    margin: auto;
 }
 
 .mobile-menu-toggle:hover {
@@ -270,13 +275,13 @@ body {
 .mobile-menu {
     display: none;
     position: fixed;
-    top: 76px;
+    top: 0;
     left: 0;
     width: 100%;
     background: rgba(10, 10, 26, 0.98);
     border-bottom: 2px solid var(--cyber-secondary);
-    padding: 1rem;
-    z-index: 999;
+    padding: 5rem 1rem 1rem 1rem;
+    z-index: 1000;
     animation: slideDown 0.3s ease;
     max-height: 0;
     overflow: hidden;
@@ -881,6 +886,12 @@ body {
 
     .welcome-title {
         font-size: 2rem;
+    }
+
+    /* Adjust header content to prevent overlap with floated hamburger button */
+    .header-content {
+        justify-content: center;
+        padding-left: 4rem;
     }
 }
 

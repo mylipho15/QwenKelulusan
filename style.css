@@ -873,80 +873,10 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
     background: var(--cyber-secondary);
-}
 
 /* ========================================
-   AUDIO CONTROL BUTTON STYLES
+   SCROLLBAR STYLES (End of file)
    ======================================== */
-.audio-control-btn {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--cyber-primary), var(--cyber-purple));
-    border: 2px solid var(--cyber-primary);
-    color: var(--cyber-dark);
-    font-size: 24px;
-    cursor: pointer;
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: var(--neon-glow);
-    transition: all 0.3s ease;
-    animation: pulse-audio 2s infinite;
-}
-
-.audio-control-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.9),
-                0 0 40px rgba(0, 255, 255, 0.7),
-                0 0 60px rgba(0, 255, 255, 0.5);
-}
-
-.audio-control-btn.playing {
-    background: linear-gradient(135deg, var(--cyber-success), var(--cyber-blue));
-    border-color: var(--cyber-success);
-    animation: audio-wave 1.5s infinite;
-}
-
-.audio-control-btn i {
-    transition: all 0.3s ease;
-}
-
-@keyframes pulse-audio {
-    0%, 100% {
-        box-shadow: var(--neon-glow);
-    }
-    50% {
-        box-shadow: 0 0 20px rgba(0, 255, 255, 0.9),
-                    0 0 40px rgba(0, 255, 255, 0.7),
-                    0 0 60px rgba(0, 255, 255, 0.5);
-    }
-}
-
-@keyframes audio-wave {
-    0% {
-        box-shadow: 0 0 10px rgba(0, 255, 65, 0.7);
-    }
-    50% {
-        box-shadow: 0 0 30px rgba(0, 255, 65, 0.9),
-                    0 0 50px rgba(0, 255, 65, 0.7);
-    }
-    100% {
-        box-shadow: 0 0 10px rgba(0, 255, 65, 0.7);
-    }
-}
-
-/* Mobile Responsive for Audio Button */
-@media (max-width: 768px) {
-    .audio-control-btn {
-        width: 50px;
-        height: 50px;
-        bottom: 20px;
-        right: 20px;
-        font-size: 20px;
-    }
+::-webkit-scrollbar-thumb:hover {
+    background: var(--cyber-secondary);
 }

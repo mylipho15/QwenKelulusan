@@ -4,14 +4,14 @@
  * JavaScript Application
  * ========================================
  * 
- * DB-Less System: Data disimpan dalam file JSON/CSV
+ * DB-Less System: Data disimpan dalam file JSON
  * Tidak memerlukan database server
  */
 
 // ========================================
 // DATA WILL BE LOADED FROM EXTERNAL FILE
 // ========================================
-// Data will be loaded from data.json, data.csv, or data.js
+// Data will be loaded from data.json only
 // No hardcoded sample data here
 
 let studentData = []; // Will be populated from external file
@@ -58,7 +58,7 @@ function initializeApp() {
     setupInputFormatting();
     
     console.log('🚀 Portal Kelulusan initialized successfully!');
-    console.log('💡 Test NIPD: 2425.1.0001, 2425.1.0002, dst.');
+    console.log('💡 Test NIPD: 242510001, 242510002, dst.');
 }
 
 // ========================================
@@ -122,10 +122,10 @@ async function handleFormSubmit(e) {
         return;
     }
     
-    // Check NIPD format (should be like 2425.1.0001)
-    const nipdFormat = /^\d{4}\.\d\.\d{4}$/;
+    // Check NIPD format (should be like 242510001)
+    const nipdFormat = /^\d{8}$/;
     if (!nipdFormat.test(nipd)) {
-        showError('⚠️ Format NIPD salah bro! Harusnya: TAPEL.SEMESTER.NO_URUT (cth: 2425.1.0001)');
+        showError('⚠️ Format NIPD salah bro! Harusnya: TAPELSEMESTERNO_URUT (cth: 242510001)');
         return;
     }
     
@@ -261,12 +261,12 @@ function validateInput(e) {
 function setupInputFormatting() {
     // Auto-format NIPD input (optional: add dashes every 4 digits)
     nipdInput.addEventListener('focus', () => {
-        nipdInput.placeholder = '2425.1.0001';
+        nipdInput.placeholder = '242510001';
     });
     
     nipdInput.addEventListener('blur', () => {
         if (!nipdInput.value) {
-            nipdInput.placeholder = '2425.1.0001';
+            nipdInput.placeholder = '242510001';
         }
     });
 }
@@ -282,7 +282,7 @@ function setupInputFormatting() {
  * Example structure:
  * [
  *   {
- *     "nipd": "2425.1.0001",
+ *     "nipd": "242510001",
  *     "nama": "Nama Siswa",
  *     "kelas": "XII Jurusan 1",
  *     "jurusan": "Jurusan",
@@ -315,52 +315,9 @@ async function loadExternalData() {
     }
 }
 
-/**
- * Load data from CSV file
- * File format: data.csv
- * 
- * Example structure:
- * nipd,nama,kelas,jurusan,tahunAjaran,status
- * 2425.1.0001,Ahmad Fauzi,XII Keperawatan 1,Keperawatan,2024/2025,LULUS
- */
-async function loadFromCSV() {
-    try {
-        const response = await fetch('data.csv');
-        
-        if (response.ok) {
-            const csvText = await response.text();
-            const data = parseCSV(csvText);
-            window.externalStudentData = data;
-            console.log(`✅ Loaded ${data.length} students from data.csv`);
-        }
-    } catch (error) {
-        console.log('ℹ️ data.csv not found');
-    }
-}
-
-/**
- * Parse CSV text to array of objects
- */
-function parseCSV(csvText) {
-    const lines = csvText.trim().split('\n');
-    const headers = lines[0].split(',').map(h => h.trim());
-    
-    const data = [];
-    
-    for (let i = 1; i < lines.length; i++) {
-        const values = lines[i].split(',').map(v => v.trim());
-        
-        if (values.length === headers.length) {
-            const obj = {};
-            headers.forEach((header, index) => {
-                obj[header] = values[index];
-            });
-            data.push(obj);
-        }
-    }
-    
-    return data;
-}
+// ========================================
+// UTILITY FUNCTIONS
+// ========================================
 
 /**
  * Show notification when external data is loaded
@@ -499,32 +456,6 @@ function exportToJSON(data, filename = 'student_data.json') {
     URL.revokeObjectURL(url);
 }
 
-/**
- * Export data to CSV file
- */
-function exportToCSV(data, filename = 'student_data.csv') {
-    if (data.length === 0) {
-        console.error('No data to export');
-        return;
-    }
-    
-    const headers = Object.keys(data[0]);
-    const csvContent = [
-        headers.join(','),
-        ...data.map(row => headers.map(header => row[header]).join(','))
-    ].join('\n');
-    
-    const blob = new Blob([csvContent], { type: 'text/csv' });
-    const url = URL.createObjectURL(blob);
-    
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    a.click();
-    
-    URL.revokeObjectURL(url);
-}
-
 // ========================================
 // CONSOLE HELPERS
 // ========================================
@@ -534,15 +465,13 @@ console.log(`
 ║   🎓 PORTAL KELULUSAN - SMKS Kesehatan SDM Sumedang 🎓  ║
 ╠══════════════════════════════════════════════════════════╣
 ║   Status: Ready                                          ║
-║   Sample NIPD: 1234567890, 2345678901, etc.             ║
+║   Sample NIPD: 242510001, 242510002, etc.               ║
 ║                                                          ║
 ║   Commands:                                              ║
 ║   - exportToJSON(studentData) - Export to JSON          ║
-║   - exportToCSV(studentData) - Export to CSV            ║
 ╚══════════════════════════════════════════════════════════╝
 `);
 
 // Make functions available globally for debugging
 window.exportToJSON = exportToJSON;
-window.exportToCSV = exportToCSV;
 window.studentData = studentData;

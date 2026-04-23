@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Kelulusan - SMKS Kesehatan SDM Sumedang</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts - Orbitron for Cyberpunk feel -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="cyber-bg"></div>
+    <div class="grid-overlay"></div>
+    
+    <!-- Header -->
+    <header class="cyber-header">
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg">
+                <div class="container">
+                    <!-- Logo and School Name -->
+                    <a class="navbar-brand cyber-brand" href="#">
+                        <img src="https://via.placeholder.com/60x60/00ffff/000000?text=LOGO" alt="Logo Sekolah" class="school-logo cyber-glow">
+                        <div class="brand-text">
+                            <h1 class="school-name">SMKS Kesehatan SDM Sumedang</h1>
+                            <p class="school-tagline">Portal Kelulusan Siswa</p>
+                        </div>
+                    </a>
+                    
+                    <!-- Mobile Toggle -->
+                    <button class="navbar-toggler cyber-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    
+                    <!-- Navbar Links -->
+                    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                        <ul class="navbar-nav cyber-nav">
+                            <li class="nav-item">
+                                <a class="nav-link cyber-link" href="https://www.smkkesehatansdm.sch.id" target="_blank">
+                                    <i class="fas fa-globe"></i> Website
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link cyber-link" href="https://www.instagram.com/smkksdm" target="_blank">
+                                    <i class="fab fa-instagram"></i> Instagram
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link cyber-link" href="https://www.tiktok.com/@smkksdm" target="_blank">
+                                    <i class="fab fa-tiktok"></i> TikTok
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="cyber-main">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-md-10">
+                    <!-- Welcome Card -->
+                    <div class="cyber-card welcome-card fade-in-up">
+                        <div class="card-header cyber-card-header">
+                            <h2 class="cyber-title">
+                                <i class="fas fa-graduation-cap"></i> Selamat Datang
+                                <span class="emoji-bounce">🎓</span>
+                            </h2>
+                        </div>
+                        <div class="card-body cyber-card-body">
+                            <div class="welcome-content text-center">
+                                <p class="welcome-text glitch-text" data-text="PORTAL KELULUSAN SISWA">
+                                    PORTAL KELULUSAN SISWA
+                                </p>
+                                <p class="info-text">
+                                    <i class="fas fa-info-circle"></i> 
+                                    Sistem Pengecekan Status Kelulusan Online
+                                </p>
+                                <div class="divider cyber-divider"></div>
+                                <p class="instruction-text">
+                                    <i class="fas fa-keyboard"></i> 
+                                    <strong>Silahkan Masukan NIPD</strong> dengan format: 
+                                    <span class="nipd-example">242510001</span>
+                                </p>
+                                <p class="hint-text">
+                                    <i class="fas fa-lightbulb"></i> 
+                                    Tips: Pastikan NIPD yang Anda masukkan sesuai dengan data sekolah
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Search Form Card -->
+                    <div class="cyber-card search-card fade-in-up delay-1">
+                        <div class="card-header cyber-card-header">
+                            <h3 class="cyber-subtitle">
+                                <i class="fas fa-search"></i> Cek Status Kelulusan
+                            </h3>
+                        </div>
+                        <div class="card-body cyber-card-body">
+                            <form id="graduationForm" class="cyber-form">
+                                <div class="mb-4">
+                                    <label for="nipdInput" class="form-label cyber-label">
+                                        <i class="fas fa-id-card"></i> Nomor Induk Peserta Didik (NIPD)
+                                    </label>
+                                    <div class="input-group cyber-input-group">
+                                        <span class="input-group-text cyber-input-prepend">
+                                            <i class="fas fa-user-graduate"></i>
+                                        </span>
+                                        <input 
+                                            type="text" 
+                                            class="form-control cyber-input" 
+                                            id="nipdInput" 
+                                            placeholder="Masukkan NIPD (contoh: 242510001)"
+                                            maxlength="9"
+                                            pattern="[0-9]{9}"
+                                            required
+                                        >
+                                    </div>
+                                    <div class="form-text cyber-hint">
+                                        <i class="fas fa-exclamation-triangle"></i> 
+                                        NIPD harus terdiri dari 9 digit angka
+                                    </div>
+                                </div>
+                                
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="btn cyber-btn btn-check-graduation">
+                                        <i class="fas fa-search"></i> Cek Kelulusan
+                                        <span class="btn-glitch"></span>
+                                    </button>
+                                </div>
+                            </form>
+
+                            <!-- Loading Indicator -->
+                            <div id="loadingIndicator" class="loading-container d-none">
+                                <div class="cyber-loader"></div>
+                                <p class="loading-text">Memproses data...</p>
+                            </div>
+
+                            <!-- Result Display -->
+                            <div id="resultDisplay" class="result-container d-none">
+                                <div class="cyber-result-card">
+                                    <div class="result-header">
+                                        <h4 class="result-title">
+                                            <i class="fas fa-certificate"></i> Hasil Pengecekan
+                                        </h4>
+                                    </div>
+                                    <div class="result-body" id="resultContent">
+                                        <!-- Result will be inserted here by JavaScript -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Error Display -->
+                            <div id="errorDisplay" class="error-container d-none">
+                                <div class="cyber-error-card">
+                                    <i class="fas fa-exclamation-circle error-icon"></i>
+                                    <p class="error-message" id="errorMessage"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Info Card -->
+                    <div class="cyber-card info-card fade-in-up delay-2">
+                        <div class="card-body cyber-card-body">
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <div class="info-box">
+                                        <i class="fas fa-clock info-icon"></i>
+                                        <h5>Jam Operasional</h5>
+                                        <p>Senin - Jumat: 07:00 - 16:00 WIB</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="info-box">
+                                        <i class="fas fa-headset info-icon"></i>
+                                        <h5>Bantuan</h5>
+                                        <p>Hubungi admin untuk bantuan lebih lanjut</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="cyber-footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="footer-section">
+                        <h5 class="footer-title">
+                            <i class="fas fa-school"></i> SMKS Kesehatan SDM Sumedang
+                        </h5>
+                        <p class="footer-desc">
+                            Portal resmi untuk pengecekan kelulusan siswa. 
+                            Memudahkan akses informasi status kelulusan secara online.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="footer-section">
+                        <h5 class="footer-title">
+                            <i class="fas fa-address-book"></i> Contact Info
+                        </h5>
+                        <ul class="footer-links">
+                            <li>
+                                <a href="https://wa.me/+6282126621991" target="_blank">
+                                    <i class="fab fa-whatsapp"></i> WA Admin: +62 821-2662-1991
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://wa.me/+6285224058508" target="_blank">
+                                    <i class="fab fa-whatsapp"></i> WA Humas: +62 852-2405-8508
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div class="footer-section">
+                        <h5 class="footer-title">
+                            <i class="fas fa-link"></i> Tautan Resmi
+                        </h5>
+                        <ul class="footer-links">
+                            <li>
+                                <a href="https://www.smkkesehatansdm.sch.id" target="_blank">
+                                    <i class="fas fa-globe"></i> Website Resmi
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.instagram.com/smkksdm" target="_blank">
+                                    <i class="fab fa-instagram"></i> Instagram
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.tiktok.com/@smkksdm" target="_blank">
+                                    <i class="fab fa-tiktok"></i> TikTok
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="row align-items-center">
+                    <div class="col-md-6 text-center text-md-start">
+                        <p class="copyright mb-0">
+                            &copy; 2024 SMKS Kesehatan SDM Sumedang. All Rights Reserved.
+                        </p>
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <p class="made-with mb-0">
+                            Made with <i class="fas fa-heart heart-beat"></i> by IT Team
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- SweetAlert2 for beautiful alerts -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+</html>

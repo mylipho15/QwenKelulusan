@@ -1,0 +1,92 @@
+[
+    {
+        "nipd": "242510001",
+        "nama": "Ahmad Fauzi",
+        "kelas": "XII TKJ 1",
+        "jurusan": "Teknik Komputer dan Jaringan",
+        "status": "LULUS",
+        "nilai_rata": "88.5",
+        "keterangan": "Dengan Predikat Memuaskan"
+    },
+    {
+        "nipd": "242510002",
+        "nama": "Siti Nurhaliza",
+        "kelas": "XII TKJ 1",
+        "jurusan": "Teknik Komputer dan Jaringan",
+        "status": "LULUS",
+        "nilai_rata": "92.3",
+        "keterangan": "Dengan Predikat Sangat Memuaskan"
+    },
+    {
+        "nipd": "242510003",
+        "nama": "Budi Santoso",
+        "kelas": "XII RPL 1",
+        "jurusan": "Rekayasa Perangkat Lunak",
+        "status": "LULUS",
+        "nilai_rata": "85.7",
+        "keterangan": "Dengan Predikat Memuaskan"
+    },
+    {
+        "nipd": "242510004",
+        "nama": "Dewi Lestari",
+        "kelas": "XII AKL 1",
+        "jurusan": "Akuntansi Keuangan Lembaga",
+        "status": "LULUS",
+        "nilai_rata": "90.1",
+        "keterangan": "Dengan Predikat Sangat Memuaskan"
+    },
+    {
+        "nipd": "242510005",
+        "nama": "Eko Prasetyo",
+        "kelas": "XII TKJ 2",
+        "jurusan": "Teknik Komputer dan Jaringan",
+        "status": "LULUS",
+        "nilai_rata": "87.9",
+        "keterangan": "Dengan Predikat Memuaskan"
+    },
+    {
+        "nipd": "242510006",
+        "nama": "Fitri Handayani",
+        "kelas": "XII Farmasi 1",
+        "jurusan": "Farmasi Klinis dan Komunitas",
+        "status": "LULUS",
+        "nilai_rata": "91.2",
+        "keterangan": "Dengan Predikat Sangat Memuaskan"
+    },
+    {
+        "nipd": "242510007",
+        "nama": "Rizky Ramadhan",
+        "kelas": "XII Keperawatan 1",
+        "jurusan": "Keperawatan",
+        "status": "LULUS",
+        "nilai_rata": "86.4",
+        "keterangan": "Dengan Predikat Memuaskan"
+    },
+    {
+        "nipd": "242510008",
+        "nama": "Ayu Lestari",
+        "kelas": "XII RPL 2",
+        "jurusan": "Rekayasa Perangkat Lunak",
+        "status": "LULUS",
+        "nilai_rata": "93.5",
+        "keterangan": "Dengan Predikat Sangat Memuaskan"
+    },
+    {
+        "nipd": "242510009",
+        "nama": "Muhammad Iqbal",
+        "kelas": "XII TKJ 1",
+        "jurusan": "Teknik Komputer dan Jaringan",
+        "status": "LULUS",
+        "nilai_rata": "84.8",
+        "keterangan": "Dengan Predikat Memuaskan"
+    },
+    {
+        "nipd": "242510010",
+        "nama": "Nadia Putri",
+        "kelas": "XII AKL 2",
+        "jurusan": "Akuntansi Keuangan Lembaga",
+        "status": "LULUS",
+        "nilai_rata": "89.7",
+        "keterangan": "Dengan Predikat Memuaskan"
+    }
+]

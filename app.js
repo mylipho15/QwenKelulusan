@@ -16,59 +16,67 @@
 
 const studentData = [
     {
-        nipd: "1234567890",
+        nipd: "2425.1.0001",
         nama: "Ahmad Fauzi",
+        kelas: "XII Keperawatan 1",
         jurusan: "Keperawatan",
-        tahunAjaran: "2023/2024",
+        tahunAjaran: "2024/2025",
         status: "LULUS"
     },
     {
-        nipd: "2345678901",
+        nipd: "2425.1.0002",
         nama: "Siti Nurhaliza",
+        kelas: "XII Farmasi 1",
         jurusan: "Farmasi",
-        tahunAjaran: "2023/2024",
+        tahunAjaran: "2024/2025",
         status: "LULUS"
     },
     {
-        nipd: "3456789012",
+        nipd: "2425.1.0003",
         nama: "Budi Santoso",
+        kelas: "XII TLM 1",
         jurusan: "Teknologi Laboratorium Medik",
-        tahunAjaran: "2023/2024",
+        tahunAjaran: "2024/2025",
         status: "LULUS"
     },
     {
-        nipd: "4567890123",
+        nipd: "2425.1.0004",
         nama: "Dewi Lestari",
+        kelas: "XII Keperawatan 2",
         jurusan: "Keperawatan",
-        tahunAjaran: "2023/2024",
+        tahunAjaran: "2024/2025",
         status: "LULUS"
     },
     {
-        nipd: "5678901234",
+        nipd: "2425.1.0005",
         nama: "Eko Prasetyo",
+        kelas: "XII Farmasi 2",
         jurusan: "Farmasi",
-        tahunAjaran: "2023/2024",
+        tahunAjaran: "2024/2025",
         status: "LULUS"
     },
     {
-        nipd: "6789012345",
+        nipd: "2425.1.0006",
         nama: "Fira Amelia",
+        kelas: "XII TLM 2",
         jurusan: "Teknologi Laboratorium Medik",
-        tahunAjaran: "2023/2024",
+        tahunAjaran: "2024/2025",
         status: "LULUS"
     },
     {
-        nipd: "7890123456",
+        nipd: "2425.1.0007",
         nama: "Gilang Ramadhan",
+        kelas: "XII Keperawatan 3",
         jurusan: "Keperawatan",
-        tahunAjaran: "2023/2024",
+        tahunAjaran: "2024/2025",
         status: "LULUS"
     },
     {
-        nipd: "8901234567",
+        nipd: "2425.1.0008",
         nama: "Hana Pertiwi",
+        kelas: "XII Farmasi 3",
         jurusan: "Farmasi",
-        tahunAjaran: "2023/2024",
+        tahunAjaran: "2024/2025",
         status: "LULUS"
     }
 ];
@@ -93,6 +101,7 @@ const studentNIPD = document.getElementById('studentNIPD');
 const studentMajor = document.getElementById('studentMajor');
 const studentYear = document.getElementById('studentYear');
 const studentStatus = document.getElementById('studentStatus');
+const studentClass = document.getElementById('studentClass');
 const congratsMessage = document.getElementById('congratsMessage');
 
 // ========================================
@@ -114,7 +123,7 @@ function initializeApp() {
     setupInputFormatting();
     
     console.log('🚀 Portal Kelulusan initialized successfully!');
-    console.log('💡 Test NIPD: 1234567890, 2345678901, etc.');
+    console.log('💡 Test NIPD: 2425.1.0001, 2425.1.0002, etc.');
 }
 
 // ========================================
@@ -174,7 +183,7 @@ async function handleFormSubmit(e) {
     
     // Validate NIPD
     if (!nipd || nipd.length < 5) {
-        showError('⚠️ NIPD harus minimal 5 karakter!');
+        showError('⚠️ NIPD harus minimal 5 karakter nih!');
         return;
     }
     
@@ -229,13 +238,20 @@ function showResult(student) {
     studentYear.textContent = student.tahunAjaran;
     studentStatus.textContent = student.status;
     
-    // Customize message based on status
-    if (student.status.toUpperCase() === 'LULUS') {
-        congratsMessage.innerHTML = '🎉 Selamat! Anda telah dinyatakan LULUS 🎉';
+    // Check if student exists in sample data and customize message
+    const sampleStudent = studentData.find(s => s.nipd === student.nipd);
+    if (sampleStudent) {
+        congratsMessage.innerHTML = `✨ Selamat kepada <strong>${student.nama}</strong> dengan NIPD <strong>${student.nipd}</strong> kelas <strong>${student.kelas || '-'}</strong> jurusan <strong>${student.jurusan}</strong> yang telah dinyatakan <strong>LULUS</strong>! 🎉<br><br>🚀 Sukses selalu di perjalanan berikutnya, ya!`;
         congratsMessage.style.color = 'var(--cyber-success)';
     } else {
-        congratsMessage.innerHTML = '⏳ Status kelulusan masih dalam proses';
-        congratsMessage.style.color = 'var(--cyber-warning)';
+        // Customize message based on status
+        if (student.status.toUpperCase() === 'LULUS') {
+            congratsMessage.innerHTML = '🎉 Selamat! Kamu telah dinyatakan LULUS 🎉';
+            congratsMessage.style.color = 'var(--cyber-success)';
+        } else {
+            congratsMessage.innerHTML = '⏳ Status kelulusan masih dalam proses';
+            congratsMessage.style.color = 'var(--cyber-warning)';
+        }
     }
     
     resultSection.classList.remove('d-none');
@@ -314,7 +330,7 @@ function setupInputFormatting() {
     
     nipdInput.addEventListener('blur', () => {
         if (!nipdInput.value) {
-            nipdInput.placeholder = 'Contoh: 1234567890';
+            nipdInput.placeholder = 'Contoh: 2425.1.0001';
         }
     });
 }
@@ -330,10 +346,11 @@ function setupInputFormatting() {
  * Example structure:
  * [
  *   {
- *     "nipd": "1234567890",
+ *     "nipd": "2425.1.0001",
  *     "nama": "Nama Siswa",
+ *     "kelas": "XII Jurusan 1",
  *     "jurusan": "Jurusan",
- *     "tahunAjaran": "2023/2024",
+ *     "tahunAjaran": "2024/2025",
  *     "status": "LULUS"
  *   }
  * ]
@@ -363,8 +380,8 @@ async function loadExternalData() {
  * File format: data.csv
  * 
  * Example structure:
- * nipd,nama,jurusan,tahunAjaran,status
- * 1234567890,Ahmad Fauzi,Keperawatan,2023/2024,LULUS
+ * nipd,nama,kelas,jurusan,tahunAjaran,status
+ * 2425.1.0001,Ahmad Fauzi,XII Keperawatan 1,Keperawatan,2024/2025,LULUS
  */
 async function loadFromCSV() {
     try {

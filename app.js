@@ -11,7 +11,7 @@
 // ========================================
 // DATA WILL BE LOADED FROM EXTERNAL FILE
 // ========================================
-// Data will be loaded from data.json, data.csv, or data.js
+// Data will be loaded from data.json
 // No hardcoded sample data here
 
 let studentData = []; // Will be populated from external file
@@ -313,53 +313,6 @@ async function loadExternalData() {
         console.log('💡 Check console for details.');
         showError('⚠️ Gagal memuat data siswa. Pastikan file data.json ada dan formatnya bener!');
     }
-}
-
-/**
- * Load data from CSV file
- * File format: data.csv
- * 
- * Example structure:
- * nipd,nama,kelas,jurusan,tahunAjaran,status
- * 2425.1.0001,Ahmad Fauzi,XII Keperawatan 1,Keperawatan,2024/2025,LULUS
- */
-async function loadFromCSV() {
-    try {
-        const response = await fetch('data.csv');
-        
-        if (response.ok) {
-            const csvText = await response.text();
-            const data = parseCSV(csvText);
-            window.externalStudentData = data;
-            console.log(`✅ Loaded ${data.length} students from data.csv`);
-        }
-    } catch (error) {
-        console.log('ℹ️ data.csv not found');
-    }
-}
-
-/**
- * Parse CSV text to array of objects
- */
-function parseCSV(csvText) {
-    const lines = csvText.trim().split('\n');
-    const headers = lines[0].split(',').map(h => h.trim());
-    
-    const data = [];
-    
-    for (let i = 1; i < lines.length; i++) {
-        const values = lines[i].split(',').map(v => v.trim());
-        
-        if (values.length === headers.length) {
-            const obj = {};
-            headers.forEach((header, index) => {
-                obj[header] = values[index];
-            });
-            data.push(obj);
-        }
-    }
-    
-    return data;
 }
 
 /**

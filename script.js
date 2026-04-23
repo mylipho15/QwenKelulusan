@@ -507,6 +507,46 @@ window.resetSearch = resetSearch;
 window.printResult = printResult;
 window.exportToCSV = exportToCSV;
 
+/**
+ * ========================================
+ * HTML5 Audio Autoplay Handler
+ * ========================================
+ * Browser modern memblokir autoplay dengan suara.
+ * Solusi: Start muted, lalu unmute saat user interaksi pertama.
+ */
+document.addEventListener('DOMContentLoaded', function() {
+    const audio = document.getElementById('bgMusic');
+    
+    if (audio) {
+        // Coba play langsung (akan berhasil jika browser mengizinkan)
+        audio.play().catch(e => {
+            console.log('⚠️ Autoplay diblokir browser, menunggu interaksi user...');
+        });
+        
+        // Unmute saat user interaksi pertama (klik, touch, keypress, scroll)
+        const enableAudio = () => {
+            if (audio.muted) {
+                audio.muted = false;
+                audio.volume = 0.5; // Set volume 50%
+                console.log('🔊 Audio enabled - Background music playing!');
+                
+                // Hapus semua listener setelah audio aktif
+                document.removeEventListener('click', enableAudio);
+                document.removeEventListener('touchstart', enableAudio);
+                document.removeEventListener('keydown', enableAudio);
+                document.removeEventListener('scroll', enableAudio);
+            }
+        };
+        
+        // Tambahkan listener untuk interaksi user
+        document.addEventListener('click', enableAudio);
+        document.addEventListener('touchstart', enableAudio);
+        document.addEventListener('keydown', enableAudio);
+        document.addEventListener('scroll', enableAudio);
+        
+        console.log('🎵 HTML5 Audio player initialized with autoplay (muted until user interaction)');
+    }
+});
 
 console.log('🚀 Portal Kelulusan initialized successfully!');
 console.log('📊 Loaded', studentData.length, 'student records');

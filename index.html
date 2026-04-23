@@ -19,8 +19,9 @@
     <div class="cyber-bg"></div>
     <div class="grid-overlay"></div>
     
-    <!-- Background Audio - Simple HTML5 Player -->
-    <audio id="bgMusic" loop controls style="position: fixed; bottom: 20px; right: 20px; width: 300px; z-index: 9999;">
+    <!-- Background Audio - Simple HTML5 Player with Autoplay -->
+    <!-- 'muted' ditambahkan agar autoplay diizinkan browser modern, akan di-unmute via JS saat user interaksi pertama -->
+    <audio id="bgMusic" loop autoplay muted playsinline style="position: fixed; bottom: 20px; right: 20px; width: 300px; z-index: 9999; opacity: 0.8;">
         <source src="audio/bgm.wav" type="audio/wav">
         Your browser does not support the audio element.
     </audio>

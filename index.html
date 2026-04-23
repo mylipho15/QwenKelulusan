@@ -19,17 +19,11 @@
     <div class="cyber-bg"></div>
     <div class="grid-overlay"></div>
     
-    <!-- Background Audio - Native HTML5 Embedded Player -->
-    <audio id="bgMusic" loop preload="auto">
-        <source src="audio/test_tone.wav" type="audio/wav">
-        <source src="audio/bgm.mp3" type="audio/mpeg">
+    <!-- Background Audio - Simple HTML5 Player -->
+    <audio id="bgMusic" loop controls style="position: fixed; bottom: 20px; right: 20px; width: 300px; z-index: 9999;">
+        <source src="audio/bgm.wav" type="audio/wav">
         Your browser does not support the audio element.
     </audio>
-    
-    <!-- Audio Control Button -->
-    <button id="audioControl" class="audio-control-btn" title="Toggle Music" aria-label="Toggle Background Music">
-        <i class="fas fa-volume-mute"></i>
-    </button>
     
     <!-- Header -->
     <header class="cyber-header">

@@ -1,0 +1,72 @@
+[
+    {
+        "nipd": "1234567890",
+        "nama": "Ahmad Fauzi",
+        "jurusan": "Keperawatan",
+        "tahunAjaran": "2023/2024",
+        "status": "LULUS"
+    },
+    {
+        "nipd": "2345678901",
+        "nama": "Siti Nurhaliza",
+        "jurusan": "Farmasi",
+        "tahunAjaran": "2023/2024",
+        "status": "LULUS"
+    },
+    {
+        "nipd": "3456789012",
+        "nama": "Budi Santoso",
+        "jurusan": "Teknologi Laboratorium Medik",
+        "tahunAjaran": "2023/2024",
+        "status": "LULUS"
+    },
+    {
+        "nipd": "4567890123",
+        "nama": "Dewi Lestari",
+        "jurusan": "Keperawatan",
+        "tahunAjaran": "2023/2024",
+        "status": "LULUS"
+    },
+    {
+        "nipd": "5678901234",
+        "nama": "Eko Prasetyo",
+        "jurusan": "Farmasi",
+        "tahunAjaran": "2023/2024",
+        "status": "LULUS"
+    },
+    {
+        "nipd": "6789012345",
+        "nama": "Fira Amelia",
+        "jurusan": "Teknologi Laboratorium Medik",
+        "tahunAjaran": "2023/2024",
+        "status": "LULUS"
+    },
+    {
+        "nipd": "7890123456",
+        "nama": "Gilang Ramadhan",
+        "jurusan": "Keperawatan",
+        "tahunAjaran": "2023/2024",
+        "status": "LULUS"
+    },
+    {
+        "nipd": "8901234567",
+        "nama": "Hana Pertiwi",
+        "jurusan": "Farmasi",
+        "tahunAjaran": "2023/2024",
+        "status": "LULUS"
+    },
+    {
+        "nipd": "9012345678",
+        "nama": "Indra Kusuma",
+        "jurusan": "Keperawatan",
+        "tahunAjaran": "2023/2024",
+        "status": "LULUS"
+    },
+    {
+        "nipd": "0123456789",
+        "nama": "Jihan Kamila",
+        "jurusan": "Farmasi",
+        "tahunAjaran": "2023/2024",
+        "status": "LULUS"
+    }
+]

@@ -89,16 +89,18 @@ body {
     100% { transform: translateY(50px); }
 }
 
-/* Header Styles */
+/* Header Styles - Bootstrap Compatible */
 .cyber-header {
-    background: rgba(10, 10, 15, 0.95);
+    background: rgba(10, 10, 15, 0.95) !important;
     backdrop-filter: blur(10px);
     border-bottom: 2px solid var(--cyber-primary);
     box-shadow: var(--neon-glow);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    padding: 1rem 0;
+    z-index: 1030;
+    padding: 0.5rem 0 !important;
+}
+
+.cyber-header .navbar {
+    padding: 0.5rem 0 !important;
 }
 
 .cyber-brand {
@@ -145,8 +147,12 @@ body {
 }
 
 .cyber-toggler {
-    border-color: var(--cyber-primary);
-    background: transparent;
+    border-color: var(--cyber-primary) !important;
+    background: transparent !important;
+}
+
+.cyber-toggler:focus {
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5) !important;
 }
 
 .cyber-toggler .navbar-toggler-icon {
@@ -169,7 +175,8 @@ body {
     letter-spacing: 1px;
 }
 
-.cyber-link:hover {
+.cyber-link:hover,
+.cyber-link:focus {
     color: var(--cyber-primary) !important;
     border-color: var(--cyber-primary);
     box-shadow: var(--neon-glow);
@@ -186,16 +193,21 @@ body {
     min-height: calc(100vh - 200px);
 }
 
-/* Card Styles */
+/* Card Styles - Bootstrap Compatible */
 .cyber-card {
     background: rgba(10, 10, 15, 0.8);
     backdrop-filter: blur(10px);
-    border: 2px solid var(--cyber-primary);
+    border: 2px solid var(--cyber-primary) !important;
     border-radius: 15px;
     box-shadow: var(--neon-glow);
     margin-bottom: 2rem;
     overflow: hidden;
     transition: all 0.3s ease;
+}
+
+.cyber-card.card {
+    background: rgba(10, 10, 15, 0.8);
+    backdrop-filter: blur(10px);
 }
 
 .cyber-card:hover {
@@ -208,7 +220,7 @@ body {
     background: linear-gradient(135deg, 
         rgba(0, 255, 255, 0.2) 0%, 
         rgba(255, 0, 255, 0.2) 100%);
-    border-bottom: 2px solid var(--cyber-primary);
+    border-bottom: 2px solid var(--cyber-primary) !important;
     padding: 1.5rem;
 }
 
@@ -320,7 +332,7 @@ body {
     margin-right: 0.5rem;
 }
 
-/* Form Styles */
+/* Form Styles - Bootstrap Compatible */
 .cyber-form {
     margin-top: 1.5rem;
 }
@@ -351,25 +363,25 @@ body {
 }
 
 .cyber-input-prepend {
-    background: rgba(0, 255, 255, 0.1);
-    border: none;
+    background: rgba(0, 255, 255, 0.1) !important;
+    border: none !important;
     color: var(--cyber-primary);
     font-size: 1.2rem;
 }
 
 .cyber-input {
-    background: rgba(10, 10, 15, 0.8);
-    border: none;
-    color: var(--cyber-light);
+    background: rgba(10, 10, 15, 0.8) !important;
+    border: none !important;
+    color: var(--cyber-light) !important;
     font-family: 'Rajdhani', sans-serif;
     font-size: 1.1rem;
     padding: 0.75rem 1rem;
 }
 
 .cyber-input:focus {
-    background: rgba(10, 10, 15, 0.9);
-    color: var(--cyber-light);
-    box-shadow: none;
+    background: rgba(10, 10, 15, 0.9) !important;
+    color: var(--cyber-light) !important;
+    box-shadow: none !important;
 }
 
 .cyber-input::placeholder {
@@ -386,16 +398,16 @@ body {
     margin-right: 0.5rem;
 }
 
-/* Button Styles */
+/* Button Styles - Bootstrap Compatible */
 .cyber-btn {
     font-family: 'Orbitron', sans-serif;
     font-size: 1.2rem;
     font-weight: 700;
-    color: var(--cyber-dark);
+    color: var(--cyber-dark) !important;
     background: linear-gradient(135deg, 
         var(--cyber-primary) 0%, 
-        var(--cyber-secondary) 100%);
-    border: none;
+        var(--cyber-secondary) 100%) !important;
+    border: none !important;
     border-radius: 10px;
     padding: 1rem 2rem;
     text-transform: uppercase;
@@ -410,6 +422,10 @@ body {
     transform: translateY(-3px);
     box-shadow: 0 0 40px rgba(0, 255, 255, 0.9),
                 0 0 80px rgba(255, 0, 255, 0.6);
+    color: var(--cyber-dark) !important;
+    background: linear-gradient(135deg, 
+        var(--cyber-primary) 0%, 
+        var(--cyber-secondary) 100%) !important;
 }
 
 .cyber-btn:active {
@@ -437,17 +453,18 @@ body {
     left: 100%;
 }
 
-/* Loading Indicator */
+/* Loading Indicator - Bootstrap Compatible */
 .loading-container {
     text-align: center;
     padding: 2rem;
 }
 
-.cyber-loader {
+.cyber-loader,
+.spinner-border.text-cyan {
     width: 60px;
     height: 60px;
     border: 4px solid rgba(0, 255, 255, 0.2);
-    border-top: 4px solid var(--cyber-primary);
+    border-top-color: var(--cyber-primary) !important;
     border-radius: 50%;
     animation: spin 1s linear infinite;
     margin: 0 auto 1rem;
@@ -488,12 +505,17 @@ body {
     }
 }
 
-.cyber-result-card {
+.cyber-result-card.card {
     background: rgba(0, 255, 65, 0.1);
-    border: 2px solid var(--cyber-success);
+    border: 2px solid var(--cyber-success) !important;
     border-radius: 10px;
     padding: 2rem;
     box-shadow: var(--green-glow);
+}
+
+.cyber-result-card .card-header.bg-success {
+    background: rgba(0, 255, 65, 0.1) !important;
+    border-bottom: 2px solid var(--cyber-success) !important;
 }
 
 .result-header {
@@ -508,7 +530,8 @@ body {
     margin: 0;
 }
 
-.result-body {
+.result-body,
+.cyber-result-card .card-body {
     color: var(--cyber-light);
 }
 
@@ -577,9 +600,9 @@ body {
     75% { transform: translateX(10px); }
 }
 
-.cyber-error-card {
-    background: rgba(255, 0, 60, 0.1);
-    border: 2px solid var(--cyber-danger);
+.cyber-error-card.alert {
+    background: rgba(255, 0, 60, 0.1) !important;
+    border: 2px solid var(--cyber-danger) !important;
     border-radius: 10px;
     padding: 2rem;
     text-align: center;
@@ -600,11 +623,11 @@ body {
 
 .error-message {
     font-size: 1.2rem;
-    color: var(--cyber-danger);
+    color: var(--cyber-danger) !important;
     margin: 0;
 }
 
-/* Info Box */
+/* Info Box - Bootstrap Compatible */
 .info-box {
     background: rgba(0, 255, 255, 0.05);
     border: 1px solid var(--cyber-primary);
@@ -612,6 +635,7 @@ body {
     padding: 1.5rem;
     text-align: center;
     transition: all 0.3s ease;
+    height: 100%;
 }
 
 .info-box:hover {
@@ -637,13 +661,11 @@ body {
     margin: 0;
 }
 
-/* Footer */
-.cyber-footer {
-    background: rgba(5, 5, 8, 0.95);
+/* Footer - Bootstrap Compatible */
+.cyber-footer.bg-dark {
+    background: rgba(5, 5, 8, 0.95) !important;
     backdrop-filter: blur(10px);
     border-top: 2px solid var(--cyber-primary);
-    padding: 3rem 0 1.5rem;
-    margin-top: 3rem;
     box-shadow: 0 -5px 30px rgba(0, 255, 255, 0.3);
 }
 
@@ -879,4 +901,123 @@ body {
    ======================================== */
 ::-webkit-scrollbar-thumb:hover {
     background: var(--cyber-secondary);
+}
+
+/* ========================================
+   BOOTSTRAP UTILITY CLASSES SUPPORT
+   ======================================== */
+
+/* Custom text color for Bootstrap spinner */
+.text-cyan {
+    color: var(--cyber-primary) !important;
+}
+
+/* Ensure Bootstrap cards work with cyber theme */
+.card.cyber-card,
+.cyber-card.card {
+    background: rgba(10, 10, 15, 0.8);
+    backdrop-filter: blur(10px);
+}
+
+/* Bootstrap alert compatibility */
+.alert.cyber-error-card,
+.cyber-error-card.alert {
+    color: var(--cyber-light) !important;
+}
+
+/* Bootstrap form control focus override */
+.form-control.cyber-input:focus,
+.cyber-input.form-control:focus {
+    background-color: rgba(10, 10, 15, 0.9) !important;
+    border-color: var(--cyber-primary) !important;
+    color: var(--cyber-light) !important;
+    box-shadow: none !important;
+}
+
+/* Bootstrap input group text */
+.input-group-text.cyber-input-prepend {
+    background-color: rgba(0, 255, 255, 0.1) !important;
+    border-color: transparent !important;
+    color: var(--cyber-primary) !important;
+}
+
+/* Responsive utilities */
+@media (max-width: 991px) {
+    .school-name {
+        font-size: 1.2rem;
+    }
+    
+    .cyber-title {
+        font-size: 1.5rem;
+    }
+    
+    .welcome-text {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .cyber-main {
+        padding: 2rem 0;
+    }
+    
+    .cyber-card-body {
+        padding: 1.5rem;
+    }
+    
+    .school-name {
+        font-size: 1rem;
+    }
+    
+    .school-tagline {
+        font-size: 0.75rem;
+    }
+    
+    .cyber-brand {
+        gap: 0.5rem;
+    }
+    
+    .school-logo {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .cyber-title {
+        font-size: 1.3rem;
+    }
+    
+    .cyber-subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .welcome-text {
+        font-size: 1.5rem;
+    }
+    
+    .info-text {
+        font-size: 1rem;
+    }
+    
+    .cyber-btn {
+        font-size: 1rem;
+        padding: 0.75rem 1.5rem;
+    }
+}
+
+@media (max-width: 575px) {
+    .cyber-card-body {
+        padding: 1rem;
+    }
+    
+    .cyber-title {
+        font-size: 1.2rem;
+    }
+    
+    .welcome-text {
+        font-size: 1.2rem;
+    }
+    
+    .status-badge {
+        font-size: 1.5rem;
+    }
 }

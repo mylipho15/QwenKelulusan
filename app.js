@@ -135,11 +135,31 @@ function setupEventListeners() {
     // Input validation on typing
     nipdInput.addEventListener('input', validateInput);
     
-    // Close mobile menu when clicking outside
+    // Close mobile menu when clicking outside or on link click
     document.addEventListener('click', (e) => {
         if (!mobileMenu.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
-            mobileMenu.style.display = 'none';
+            mobileMenu.classList.remove('show');
+            mobileMenuToggle.classList.remove('active');
+            const icon = mobileMenuToggle.querySelector('i');
+            if (icon) {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
         }
+    });
+    
+    // Close mobile menu when a link is clicked
+    const mobileLinks = mobileMenu.querySelectorAll('a');
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.remove('show');
+            mobileMenuToggle.classList.remove('active');
+            const icon = mobileMenuToggle.querySelector('i');
+            if (icon) {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
     });
 }
 
@@ -252,8 +272,18 @@ function handleReset() {
 // ========================================
 
 function toggleMobileMenu() {
-    const isDisplayed = mobileMenu.style.display === 'block';
-    mobileMenu.style.display = isDisplayed ? 'none' : 'block';
+    mobileMenu.classList.toggle('show');
+    mobileMenuToggle.classList.toggle('active');
+    
+    // Toggle icon between bars and times (X)
+    const icon = mobileMenuToggle.querySelector('i');
+    if (mobileMenu.classList.contains('show')) {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+    } else {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+    }
 }
 
 // ========================================

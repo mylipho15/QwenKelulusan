@@ -98,6 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeElements();
     initializeEventListeners();
     loadStudentData();
+    initNativeAudioPlayer();
 });
 
 /**
@@ -508,7 +509,187 @@ window.printResult = printResult;
 window.exportToCSV = exportToCSV;
 
 // ========================================
-// Background Audio Control
+// Native Embedded Audio Player
+// ========================================
+let nativeAudioPlayer = {
+    audio: null,
+    controlBtn: null,
+    isPlaying: false,
+    hasInitialized: false
+};
+
+/**
+ * Initialize Native Audio Player with better browser compatibility
+ */
+function initNativeAudioPlayer() {
+    nativeAudioPlayer.audio = document.getElementById('bgMusic');
+    nativeAudioPlayer.controlBtn = document.getElementById('audioControl');
+    
+    if (!nativeAudioPlayer.audio || !nativeAudioPlayer.controlBtn) {
+        console.warn('⚠️ Native audio player elements not found');
+        return;
+    }
+    
+    // Prevent double initialization
+    if (nativeAudioPlayer.hasInitialized) {
+        return;
+    }
+    nativeAudioPlayer.hasInitialized = true;
+    
+    // Set initial volume to 30%
+    nativeAudioPlayer.audio.volume = 0.3;
+    
+    // Preload the audio
+    nativeAudioPlayer.audio.load();
+    
+    // Add event listeners for better error handling
+    nativeAudioPlayer.audio.addEventListener('loadeddata', () => {
+        console.log('✅ Audio loaded successfully');
+    });
+    
+    nativeAudioPlayer.audio.addEventListener('error', (e) => {
+        console.error('❌ Audio loading error:', e);
+        showAudioNotification('⚠️ Audio file could not be loaded', 'warning');
+    });
+    
+    nativeAudioPlayer.audio.addEventListener('ended', () => {
+        console.log('🔁 Audio loop ended, restarting...');
+    });
+    
+    nativeAudioPlayer.audio.addEventListener('play', () => {
+        nativeAudioPlayer.isPlaying = true;
+        updateAudioButtonState(true);
+    });
+    
+    nativeAudioPlayer.audio.addEventListener('pause', () => {
+        nativeAudioPlayer.isPlaying = false;
+        updateAudioButtonState(false);
+    });
+    
+    // Click handler for audio button
+    nativeAudioPlayer.controlBtn.addEventListener('click', toggleNativeAudio);
+    
+    // Try to autoplay on first user interaction anywhere on page
+    setupNativeAutoplay();
+    
+    // Initial attempt to play
+    playNativeAudio();
+    
+    console.log('🎵 Native audio player initialized');
+}
+
+/**
+ * Setup autoplay on first user interaction
+ */
+function setupNativeAutoplay() {
+    const tryPlay = () => {
+        if (!nativeAudioPlayer.isPlaying && nativeAudioPlayer.audio) {
+            playNativeAudio();
+            
+            // Remove all listeners after first interaction
+            document.removeEventListener('click', tryPlay);
+            document.removeEventListener('touchstart', tryPlay);
+            document.removeEventListener('keydown', tryPlay);
+            document.removeEventListener('scroll', tryPlay);
+        }
+    };
+    
+    // Listen for various user interactions
+    document.addEventListener('click', tryPlay, { once: true, passive: true });
+    document.addEventListener('touchstart', tryPlay, { once: true, passive: true });
+    document.addEventListener('keydown', tryPlay, { once: true, passive: true });
+    document.addEventListener('scroll', tryPlay, { once: true, passive: true });
+    
+    // Also try on form submission
+    const form = document.getElementById('graduationForm');
+    if (form) {
+        form.addEventListener('submit', () => {
+            if (!nativeAudioPlayer.isPlaying && nativeAudioPlayer.audio) {
+                playNativeAudio();
+            }
+        }, { once: true });
+    }
+}
+
+/**
+ * Toggle audio playback
+ */
+function toggleNativeAudio(e) {
+    if (e) e.stopPropagation();
+    
+    if (nativeAudioPlayer.isPlaying) {
+        pauseNativeAudio();
+    } else {
+        playNativeAudio();
+    }
+}
+
+/**
+ * Play audio with error handling
+ */
+function playNativeAudio() {
+    if (!nativeAudioPlayer.audio) return;
+    
+    // Reset and reload to ensure fresh state
+    nativeAudioPlayer.audio.currentTime = 0;
+    
+    const playPromise = nativeAudioPlayer.audio.play();
+    
+    if (playPromise !== undefined) {
+        playPromise.then(() => {
+            nativeAudioPlayer.isPlaying = true;
+            updateAudioButtonState(true);
+            showAudioNotification('🎵 Music Started', 'success');
+            console.log('▶️ Audio playing');
+        }).catch(error => {
+            console.warn('⚠️ Autoplay prevented:', error.message);
+            // Update button to show muted state but don't show error
+            updateAudioButtonState(false);
+            nativeAudioPlayer.controlBtn.title = 'Click to play music';
+        });
+    }
+}
+
+/**
+ * Pause audio
+ */
+function pauseNativeAudio() {
+    if (!nativeAudioPlayer.audio) return;
+    
+    nativeAudioPlayer.audio.pause();
+    nativeAudioPlayer.isPlaying = false;
+    updateAudioButtonState(false);
+    showAudioNotification('⏸️ Music Paused', 'info');
+    console.log('⏸️ Audio paused');
+}
+
+/**
+ * Update audio button state
+ */
+function updateAudioButtonState(isPlaying) {
+    if (!nativeAudioPlayer.controlBtn) return;
+    
+    const icon = nativeAudioPlayer.controlBtn.querySelector('i');
+    
+    if (isPlaying) {
+        nativeAudioPlayer.controlBtn.classList.add('playing');
+        if (icon) {
+            icon.className = 'fas fa-volume-up';
+        }
+        nativeAudioPlayer.controlBtn.title = 'Pause Music';
+        nativeAudioPlayer.controlBtn.setAttribute('aria-label', 'Pause Background Music');
+    } else {
+        nativeAudioPlayer.controlBtn.classList.remove('playing');
+        if (icon) {
+            icon.className = 'fas fa-volume-mute';
+        }
+        nativeAudioPlayer.controlBtn.title = 'Play Music';
+        nativeAudioPlayer.controlBtn.setAttribute('aria-label', 'Play Background Music');
+    }
+}
+
+// ========================================
+// Legacy Audio Control (kept for compatibility)
 // ========================================
 const audioControl = {
     bgMusic: null,
@@ -588,10 +769,10 @@ const audioControl = {
             this.audioBtn.title = 'Mute Music';
             
             // Show notification
-            this.showAudioNotification('🎵 Music Started', 'success');
+            showAudioNotification('🎵 Music Started', 'success');
         }).catch(error => {
             console.warn('⚠️ Autoplay prevented:', error);
-            this.showAudioNotification('🔇 Click to play music', 'info');
+            showAudioNotification('🔇 Click to play music', 'info');
         });
     },
     
@@ -605,7 +786,7 @@ const audioControl = {
         this.audioBtn.title = 'Play Music';
         
         // Show notification
-        this.showAudioNotification('🔇 Music Paused', 'info');
+        showAudioNotification('🔇 Music Paused', 'info');
     },
     
     showAudioNotification(message, type) {
@@ -636,10 +817,46 @@ const audioControl = {
     }
 };
 
-// Initialize audio control when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    audioControl.init();
-});
+// ========================================
+// Standalone Audio Notification Function
+// ========================================
+/**
+ * Show audio notification using SweetAlert2 toast
+ */
+function showAudioNotification(message, type) {
+    // Check if Swal is available
+    if (typeof Swal === 'undefined') {
+        console.log('🔔 Audio:', message);
+        return;
+    }
+    
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer);
+            toast.addEventListener('mouseleave', Swal.resumeTimer);
+        }
+    });
+    
+    Toast.fire({
+        icon: type,
+        title: message,
+        background: '#0a0a0f',
+        color: '#e0e0e0',
+        backdrop: `
+            rgba(0, 255, 255, 0.1)
+            left top
+            no-repeat
+        `
+    });
+}
+
+// Note: Native audio player is initialized in the main DOMContentLoaded handler
+// Legacy audioControl.init() is kept for backward compatibility but not called
 
 console.log('🚀 Portal Kelulusan initialized successfully!');
 console.log('📊 Loaded', studentData.length, 'student records');

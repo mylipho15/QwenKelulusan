@@ -82,8 +82,7 @@ body {
     border-bottom: 2px solid var(--cyber-primary);
     box-shadow: var(--neon-glow);
     padding: 1rem 0;
-    position: sticky;
-    top: 0;
+    position: relative;
     z-index: 1000;
     backdrop-filter: blur(10px);
 }
@@ -261,11 +260,17 @@ body {
     box-shadow: var(--pink-glow);
 }
 
+.mobile-menu-toggle.active {
+    background: var(--cyber-secondary);
+    color: white;
+    box-shadow: var(--pink-glow);
+}
+
 /* Mobile Menu */
 .mobile-menu {
     display: none;
     position: fixed;
-    top: 80px;
+    top: 76px;
     left: 0;
     width: 100%;
     background: rgba(10, 10, 26, 0.98);
@@ -273,6 +278,14 @@ body {
     padding: 1rem;
     z-index: 999;
     animation: slideDown 0.3s ease;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.mobile-menu.show {
+    display: block;
+    max-height: 300px;
 }
 
 @keyframes slideDown {

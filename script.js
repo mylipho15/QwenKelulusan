@@ -507,5 +507,133 @@ window.resetSearch = resetSearch;
 window.printResult = printResult;
 window.exportToCSV = exportToCSV;
 
+// ========================================
+// Background Audio Control
+// ========================================
+const audioControl = {
+    bgMusic: null,
+    audioBtn: null,
+    isPlaying: false,
+    
+    init() {
+        this.bgMusic = document.getElementById('bgMusic');
+        this.audioBtn = document.getElementById('audioControl');
+        
+        if (!this.bgMusic || !this.audioBtn) {
+            console.warn('⚠️ Audio elements not found');
+            return;
+        }
+        
+        // Set initial volume (30% to not be too loud)
+        this.bgMusic.volume = 0.3;
+        
+        // Add click event listener
+        this.audioBtn.addEventListener('click', () => this.toggleAudio());
+        
+        // Try to autoplay on first user interaction
+        this.setupAutoplay();
+        
+        console.log('🎵 Audio control initialized');
+    },
+    
+    setupAutoplay() {
+        // Browser autoplay policy requires user interaction first
+        // We'll try to play on first click anywhere on the page
+        const tryPlay = () => {
+            if (!this.isPlaying && this.bgMusic) {
+                this.playAudio();
+                document.removeEventListener('click', tryPlay);
+                document.removeEventListener('touchstart', tryPlay);
+                document.removeEventListener('keydown', tryPlay);
+            }
+        };
+        
+        // Listen for first user interaction
+        document.addEventListener('click', tryPlay, { once: true });
+        document.addEventListener('touchstart', tryPlay, { once: true });
+        document.addEventListener('keydown', tryPlay, { once: true });
+        
+        // Also try on form submission
+        const form = document.getElementById('graduationForm');
+        if (form) {
+            form.addEventListener('submit', () => {
+                if (!this.isPlaying && this.bgMusic) {
+                    this.playAudio();
+                }
+            }, { once: true });
+        }
+    },
+    
+    toggleAudio() {
+        if (this.isPlaying) {
+            this.pauseAudio();
+        } else {
+            this.playAudio();
+        }
+    },
+    
+    playAudio() {
+        if (!this.bgMusic) return;
+        
+        this.bgMusic.play().then(() => {
+            this.isPlaying = true;
+            this.audioBtn.classList.add('playing');
+            this.audioBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+            this.audioBtn.title = 'Mute Music';
+            
+            // Show notification
+            this.showAudioNotification('🎵 Music Started', 'success');
+        }).catch(error => {
+            console.warn('⚠️ Autoplay prevented:', error);
+            this.showAudioNotification('🔇 Click to play music', 'info');
+        });
+    },
+    
+    pauseAudio() {
+        if (!this.bgMusic) return;
+        
+        this.bgMusic.pause();
+        this.isPlaying = false;
+        this.audioBtn.classList.remove('playing');
+        this.audioBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+        this.audioBtn.title = 'Play Music';
+        
+        // Show notification
+        this.showAudioNotification('🔇 Music Paused', 'info');
+    },
+    
+    showAudioNotification(message, type) {
+        // Use SweetAlert2 toast notification
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer);
+                toast.addEventListener('mouseleave', Swal.resumeTimer);
+            }
+        });
+        
+        Toast.fire({
+            icon: type,
+            title: message,
+            background: '#0a0a0f',
+            color: '#e0e0e0',
+            backdrop: `
+                rgba(0, 255, 255, 0.1)
+                left top
+                no-repeat
+            `
+        });
+    }
+};
+
+// Initialize audio control when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    audioControl.init();
+});
+
 console.log('🚀 Portal Kelulusan initialized successfully!');
 console.log('📊 Loaded', studentData.length, 'student records');

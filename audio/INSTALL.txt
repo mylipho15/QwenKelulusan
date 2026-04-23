@@ -1,0 +1,86 @@
+============================================================
+CARA MEMASANG FILE AUDIO (bgm.mp3)
+============================================================
+
+MASALAH SAAT INI:
+File bgm.mp3 yang ada saat ini hanyalah file placeholder kosong.
+Audio tidak akan berbunyi sampai Anda menggantinya dengan file MP3 asli.
+
+SOLUSI - 3 CARA MUDAH:
+
+CARA 1: Download dari Internet (Gratis & Legal)
+------------------------------------------------
+1. Kunjungi salah satu situs berikut:
+   - https://freemusicarchive.org/ (pilih genre Electronic/Ambient)
+   - https://opengameart.org/content/search?name=music
+   - https://incompetech.com/music/royalty-free/
+   - https://www.bensound.com/royalty-free-music
+
+2. Download file musik dalam format MP3
+3. Rename file menjadi: bgm.mp3
+4. Copy file ke folder: audio/
+5. Ganti file placeholder yang sudah ada
+
+CARA 2: Gunakan File MP3 Sendiri
+---------------------------------
+1. Siapkan file MP3 favorit Anda (disarankan 1-3 menit)
+2. Rename menjadi: bgm.mp3
+3. Simpan di folder: audio/
+
+CARA 3: Convert dari YouTube (untuk penggunaan pribadi)
+-------------------------------------------------------
+1. Cari musik cyberpunk/ambient di YouTube
+2. Gunakan converter YouTube to MP3 online
+3. Download dan rename menjadi: bgm.mp3
+4. Simpan di folder: audio/
+
+REKOMENDASI MUSIK UNTUK TEMA CYBERPUNK:
+- Synthwave / Retrowave
+- Ambient Electronic
+- Chillstep
+- Lo-fi Hip Hop
+- Cinematic Electronic
+
+SPESIFIKASI FILE YANG DISARANKAN:
+- Format: MP3 (.mp3)
+- Ukuran: 1-5 MB (agar loading cepat)
+- Duration: 60-180 detik (akan loop otomatis)
+- Bitrate: 128-192 kbps (cukup untuk background music)
+- Nama file HARUS: bgm.mp3 (huruf kecil semua)
+
+TESTING SETELAH MENGGANTI FILE:
+-------------------------------
+1. Buka index.html di browser
+2. Musik seharusnya otomatis mulai bermain
+3. Jika tidak, klik tombol speaker di pojok kanan bawah
+4. Cek console browser (F12) untuk error messages
+
+TROUBLESHOOTING:
+----------------
+Masalah: Audio tidak berbunyi
+Solusi: 
+- Pastikan file bernama bgm.mp3 (case-sensitive!)
+- Pastikan file ada di folder audio/
+- Coba refresh halaman (Ctrl+F5)
+- Cek volume komputer/browser
+
+Masalah: Autoplay diblokir browser
+Solusi:
+- Ini normal, browser modern memblokir autoplay
+- User harus interaksi dulu (klik di mana saja)
+- Atau klik tombol speaker manual
+
+Masalah: File terlalu besar, loading lama
+Solusi:
+- Compress file MP3 dengan bitrate lebih rendah
+- Gunakan durasi lebih pendek (1-2 menit cukup)
+- Gunakan tool online seperti mp3compressor.com
+
+CATATAN PENTING:
+- File bgm.mp3 akan diputar berulang (looping)
+- Volume default diset 30% agar tidak terlalu keras
+- User bisa mute/unmute via tombol speaker
+- Musik akan terus bermain saat navigasi di halaman
+
+PATH FILE SAAT INI: audio/bgm.mp3
+============================================================

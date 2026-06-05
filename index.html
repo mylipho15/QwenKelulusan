@@ -3,287 +3,477 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Kelulusan - SMKS Kesehatan SDM Sumedang</title>
-    
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts - Orbitron for Cyberpunk feel -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <!-- Custom CSS -->
+    <title>Galeri Foto Sekolah - SMKS Kesehatan SDM Sumedang</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Animated Background -->
-    <div class="cyber-bg"></div>
-    <div class="grid-overlay"></div>
-    
-    <!-- Background Audio - Floating HTML5 Player -->
-    <audio id="bgMusic" loop autoplay muted playsinline controls style="position: fixed; bottom: 20px; right: 20px; width: 320px; z-index: 9999; opacity: 0.9; border-radius: 10px; box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3); backdrop-filter: blur(10px); background: rgba(0, 0, 0, 0.7);">
-        <source src="audio/bgm.mp3" type="audio/mp3">
-        Your browser does not support the audio element.
-    </audio>
-    
-    <!-- Header -->
-    <header class="cyber-header">
-        <div class="container-fluid">
-            <nav class="navbar navbar-expand-lg">
-                <div class="container">
-                    <!-- Logo and School Name -->
-                    <a class="navbar-brand cyber-brand" href="#">
-                        <img src="https://via.placeholder.com/60x60/00ffff/000000?text=LOGO" alt="Logo Sekolah" class="school-logo cyber-glow">
-                        <div class="brand-text">
-                            <h1 class="school-name">SMKS Kesehatan SDM Sumedang</h1>
-                            <p class="school-tagline">Portal Kelulusan Siswa</p>
-                        </div>
+    <!-- Background Animation -->
+    <div class="bg-animation">
+        <div class="circle circle-1"></div>
+        <div class="circle circle-2"></div>
+        <div class="circle circle-3"></div>
+        <div class="circle circle-4"></div>
+        <div class="circle circle-5"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar glass">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span>SMKS Kesehatan SDM</span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#beranda" class="nav-link active"><i class="fas fa-home"></i> Beranda</a></li>
+                <li><a href="#prakata" class="nav-link"><i class="fas fa-user-tie"></i> Prakata</a></li>
+                <li class="dropdown">
+                    <a href="#sumpah-lantik" class="nav-link dropdown-toggle"><i class="fas fa-certificate"></i> Sumpah Lantik <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#sl-mockup" class="dropdown-item">Mock-Up</a></li>
+                        <li><a href="#sl-pembukaan" class="dropdown-item">Pembukaan</a></li>
+                        <li><a href="#sl-prosesi" class="dropdown-item">Prosesi Angkat Sumpah</a></li>
+                        <li><a href="#sl-raport" class="dropdown-item">Pembagian Raport & Pengalungan</a></li>
+                        <li><a href="#sl-penutupan" class="dropdown-item">Penutupan</a></li>
+                        <li><a href="#sl-foto" class="dropdown-item">Foto Bersama</a></li>
+                        <li><a href="#sl-penampilan" class="dropdown-item">Penampilan Siswa Terbaik</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#paturay-tineung" class="nav-link dropdown-toggle"><i class="fas fa-celebration"></i> Paturay Tineung <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#pt-pembukaan" class="dropdown-item">Pembukaan</a></li>
+                        <li><a href="#pt-puisi" class="dropdown-item">Pembacaan Puisi</a></li>
+                        <li><a href="#pt-sungkem" class="dropdown-item">Prosesi Sungkem</a></li>
+                        <li><a href="#pt-purna" class="dropdown-item">Purna Tugas Kepala Sekolah</a></li>
+                        <li><a href="#pt-penghargaan" class="dropdown-item">Penghargaan Siswa</a></li>
+                        <li><a href="#pt-pelepasan" class="dropdown-item">Pelepasan Kelas XII</a></li>
+                        <li><a href="#pt-kelas-x" class="dropdown-item">Penampilan Kelas X</a></li>
+                        <li><a href="#pt-penutupan" class="dropdown-item">Penutupan</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section (Beranda) -->
+    <section id="beranda" class="hero-section">
+        <div class="hero-content glass">
+            <div class="school-logo">
+                <i class="fas fa-university"></i>
+            </div>
+            <h1>SMKS Kesehatan SDM Sumedang</h1>
+            <p class="tagline">Galeri Foto Interaktif</p>
+            <div class="school-info">
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Jl. Raya Sumedang-Kadipaten KM6 Dsn. Cicelot RT04/08 Mandalaherang, Cimalaka, Sumedang 45353</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>smkk.sdm@gmail.com</span>
+                </div>
+                <div class="social-links">
+                    <a href="https://instagram.com/smkksdm" target="_blank" class="social-btn instagram">
+                        <i class="fab fa-instagram"></i> @smkksdm
                     </a>
-                    
-                    <!-- Mobile Toggle -->
-                    <button class="navbar-toggler cyber-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    
-                    <!-- Navbar Links -->
-                    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                        <ul class="navbar-nav cyber-nav">
-                            <li class="nav-item">
-                                <a class="nav-link cyber-link" href="https://www.smkkesehatansdm.sch.id" target="_blank">
-                                    <i class="fas fa-globe"></i> Website
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link cyber-link" href="https://www.instagram.com/smkksdm" target="_blank">
-                                    <i class="fab fa-instagram"></i> Instagram
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link cyber-link" href="https://www.tiktok.com/@smkksdm" target="_blank">
-                                    <i class="fab fa-tiktok"></i> TikTok
-                                </a>
-                            </li>
-                        </ul>
+                    <a href="https://tiktok.com/@smkksdm" target="_blank" class="social-btn tiktok">
+                        <i class="fab fa-tiktok"></i> @smkksdm
+                    </a>
+                    <a href="https://wa.me/+6282126621991" target="_blank" class="social-btn whatsapp">
+                        <i class="fab fa-whatsapp"></i> Admin
+                    </a>
+                    <a href="https://wa.me/+6285224058508" target="_blank" class="social-btn whatsapp">
+                        <i class="fab fa-whatsapp"></i> Humas
+                    </a>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <i class="fas fa-chevron-down"></i>
+                <span>Scroll untuk melihat galeri</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prakata Section -->
+    <section id="prakata" class="prakata-section">
+        <div class="container">
+            <div class="section-title glass">
+                <i class="fas fa-quote-left"></i>
+                <h2>Prakata Pelaksana Tugas Kepala Sekolah</h2>
+            </div>
+            <div class="prakata-content glass">
+                <div class="profile-photo">
+                    <div class="photo-placeholder">
+                        <i class="fas fa-user-tie"></i>
                     </div>
                 </div>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Main Content -->
-    <main class="cyber-main">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8 col-md-10">
-                    <!-- Welcome Card -->
-                    <div class="cyber-card welcome-card fade-in-up">
-                        <div class="card-header cyber-card-header">
-                            <h2 class="cyber-title">
-                                <i class="fas fa-graduation-cap"></i> Selamat Datang
-                                <span class="emoji-bounce">🎓</span>
-                            </h2>
-                        </div>
-                        <div class="card-body cyber-card-body">
-                            <div class="welcome-content text-center">
-                                <p class="welcome-text glitch-text" data-text="PORTAL KELULUSAN SISWA">
-                                    PORTAL KELULUSAN SISWA
-                                </p>
-                                <p class="info-text">
-                                    <i class="fas fa-info-circle"></i> 
-                                    Sistem Pengecekan Status Kelulusan Online
-                                </p>
-                                <div class="divider cyber-divider"></div>
-                                <p class="instruction-text">
-                                    <i class="fas fa-keyboard"></i> 
-                                    <strong>Silahkan Masukan NIPD</strong> dengan format: 
-                                    <span class="nipd-example">242510001</span>
-                                </p>
-                                <p class="hint-text">
-                                    <i class="fas fa-lightbulb"></i> 
-                                    Tips: Pastikan NIPD yang Anda masukkan sesuai dengan data sekolah
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Search Form Card -->
-                    <div class="cyber-card search-card fade-in-up delay-1">
-                        <div class="card-header cyber-card-header">
-                            <h3 class="cyber-subtitle">
-                                <i class="fas fa-search"></i> Cek Status Kelulusan
-                            </h3>
-                        </div>
-                        <div class="card-body cyber-card-body">
-                            <form id="graduationForm" class="cyber-form">
-                                <div class="mb-4">
-                                    <label for="nipdInput" class="form-label cyber-label">
-                                        <i class="fas fa-id-card"></i> Nomor Induk Peserta Didik (NIPD)
-                                    </label>
-                                    <div class="input-group cyber-input-group">
-                                        <span class="input-group-text cyber-input-prepend">
-                                            <i class="fas fa-user-graduate"></i>
-                                        </span>
-                                        <input 
-                                            type="text" 
-                                            class="form-control cyber-input" 
-                                            id="nipdInput" 
-                                            placeholder="Masukkan NIPD (contoh: 242510001)"
-                                            maxlength="9"
-                                            pattern="[0-9]{9}"
-                                            required
-                                        >
-                                    </div>
-                                    <div class="form-text cyber-hint">
-                                        <i class="fas fa-exclamation-triangle"></i> 
-                                        NIPD harus terdiri dari 9 digit angka
-                                    </div>
-                                </div>
-                                
-                                <div class="d-grid gap-2">
-                                    <button type="submit" class="btn cyber-btn btn-check-graduation">
-                                        <i class="fas fa-search"></i> Cek Kelulusan
-                                        <span class="btn-glitch"></span>
-                                    </button>
-                                </div>
-                            </form>
-
-                            <!-- Loading Indicator -->
-                            <div id="loadingIndicator" class="loading-container d-none">
-                                <div class="cyber-loader"></div>
-                                <p class="loading-text">Memproses data...</p>
-                            </div>
-
-                            <!-- Result Display -->
-                            <div id="resultDisplay" class="result-container d-none">
-                                <div class="cyber-result-card">
-                                    <div class="result-header">
-                                        <h4 class="result-title">
-                                            <i class="fas fa-certificate"></i> Hasil Pengecekan
-                                        </h4>
-                                    </div>
-                                    <div class="result-body" id="resultContent">
-                                        <!-- Result will be inserted here by JavaScript -->
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Error Display -->
-                            <div id="errorDisplay" class="error-container d-none">
-                                <div class="cyber-error-card">
-                                    <i class="fas fa-exclamation-circle error-icon"></i>
-                                    <p class="error-message" id="errorMessage"></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Additional Info Card -->
-                    <div class="cyber-card info-card fade-in-up delay-2">
-                        <div class="card-body cyber-card-body">
-                            <div class="row g-4">
-                                <div class="col-md-6">
-                                    <div class="info-box">
-                                        <i class="fas fa-clock info-icon"></i>
-                                        <h5>Jam Operasional</h5>
-                                        <p>Senin - Jumat: 07:00 - 16:00 WIB</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="info-box">
-                                        <i class="fas fa-headset info-icon"></i>
-                                        <h5>Bantuan</h5>
-                                        <p>Hubungi admin untuk bantuan lebih lanjut</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="prakata-text">
+                    <h3>Yudi Iskandar, S.Pd.</h3>
+                    <p class="title">Pelaksana Tugas Kepala Sekolah</p>
+                    <p class="message">
+                        Assalamu'alaikum Warahmatullahi Wabarakatuh,
+                    </p>
+                    <p>
+                        Puji syukur kita panjatkan ke hadirat Allah SWT atas rahmat dan karunia-Nya, sehingga Galeri Foto Digital SMKS Kesehatan SDM Sumedang ini dapat terwujud. Galeri ini merupakan dokumentasi dari momen-momen penting dalam perjalanan pendidikan di sekolah kami, khususnya acara Sumpah Lantik dan Paturay Tineung yang penuh makna.
+                    </p>
+                    <p>
+                        Melalui galeri ini, kami berharap dapat mengabadikan setiap kenangan indah, prestasi, dan momen bersejarah yang telah dilalui oleh siswa-siswi kami. Semoga dokumentasi ini dapat menjadi inspirasi dan motivasi bagi generasi mendatang untuk terus berkarya dan berprestasi.
+                    </p>
+                    <p>
+                        Terima kasih kepada semua pihak yang telah berkontribusi dalam penyelenggaraan acara dan pembuatan galeri ini. Semoga Allah SWT senantiasa meridhoi setiap langkah kita.
+                    </p>
+                    <p class="closing">
+                        Wassalamu'alaikum Warahmatullahi Wabarakatuh.
+                    </p>
                 </div>
             </div>
         </div>
-    </main>
+    </section>
+
+    <!-- Sumpah Lantik Gallery Sections -->
+    <section id="sumpah-lantik" class="gallery-main-section">
+        <div class="container">
+            <div class="section-header glass">
+                <i class="fas fa-certificate"></i>
+                <h2>Galeri Foto Sumpah Lantik</h2>
+                <p>Dokumentasi Acara Sumpah Lantik Siswa SMKS Kesehatan SDM Sumedang</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mock-Up Section -->
+    <section id="sl-mockup" class="gallery-section">
+        <div class="container">
+            <div class="section-subtitle glass">
+                <i class="fas fa-image"></i>
+                <h3>Mock-Up</h3>
+            </div>
+            <div class="gallery-grid" data-category="sl-mockup">
+                <!-- Photos will be loaded dynamically -->
+                <div class="placeholder-message">
+                    <i class="fas fa-images"></i>
+                    <p>Foto Mock-Up akan ditampilkan di sini</p>
+                    <small>Source: ./images/01_Suntik-Intro/</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pembukaan Section -->
+    <section id="sl-pembukaan" class="gallery-section">
+        <div class="container">
+            <div class="section-subtitle glass">
+                <i class="fas fa-flag"></i>
+                <h3>Pembukaan</h3>
+            </div>
+            <div class="gallery-grid" data-category="sl-pembukaan">
+                <div class="placeholder-message">
+                    <i class="fas fa-images"></i>
+                    <p>Foto Pembukaan akan ditampilkan di sini</p>
+                    <small>Source: ./images/02_Suntik-Pembukaan/</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prosesi Angkat Sumpah Section -->
+    <section id="sl-prosesi" class="gallery-section">
+        <div class="container">
+            <div class="section-subtitle glass">
+                <i class="fas fa-hand-paper"></i>
+                <h3>Prosesi Angkat Sumpah</h3>
+            </div>
+            <div class="gallery-grid" data-category="sl-prosesi">
+                <div class="placeholder-message">
+                    <i class="fas fa-images"></i>
+                    <p>Foto Prosesi Angkat Sumpah akan ditampilkan di sini</p>
+                    <small>Source: ./images/03_Suntik-AngkatSumpah/</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pembagian Raport dan Pengalungan Section -->
+    <section id="sl-raport" class="gallery-section">
+        <div class="container">
+            <div class="section-subtitle glass">
+                <i class="fas fa-award"></i>
+                <h3>Pembagian Raport dan Pengalungan</h3>
+            </div>
+            <div class="gallery-grid" data-category="sl-raport">
+                <div class="placeholder-message">
+                    <i class="fas fa-images"></i>
+                    <p>Foto Pembagian Raport dan Pengalungan akan ditampilkan di sini</p>
+                    <small>Source: ./images/04_Suntik-PembRaportKalung/</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Penutupan Section -->
+    <section id="sl-penutupan" class="gallery-section">
+        <div class="container">
+            <div class="section-subtitle glass">
+                <i class="fas fa-door-closed"></i>
+                <h3>Penutupan</h3>
+            </div>
+            <div class="gallery-grid" data-category="sl-penutupan">
+                <div class="placeholder-message">
+                    <i class="fas fa-images"></i>
+                    <p>Foto Penutupan akan ditampilkan di sini</p>
+                    <small>Source: ./images/05_Suntik-Penutup/</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Foto Bersama Section -->
+    <section id="sl-foto" class="gallery-section">
+        <div class="container">
+            <div class="section-subtitle glass">
+                <i class="fas fa-users"></i>
+                <h3>Prosesi Foto Bersama</h3>
+            </div>
+            <div class="gallery-grid" data-category="sl-foto">
+                <div class="placeholder-message">
+                    <i class="fas fa-images"></i>
+                    <p>Foto Bersama akan ditampilkan di sini</p>
+                    <small>Source: ./images/06_Suntik-FotoBersama/</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Penampilan Siswa Terbaik Section -->
+    <section id="sl-penampilan" class="gallery-section">
+        <div class="container">
+            <div class="section-subtitle glass">
+                <i class="fas fa-star"></i>
+                <h3>Penampilan Siswa Terbaik</h3>
+            </div>
+            <div class="gallery-grid" data-category="sl-penampilan">
+                <div class="placeholder-message">
+                    <i class="fas fa-images"></i>
+                    <p>Foto Penampilan Siswa Terbaik akan ditampilkan di sini</p>
+                    <small>Source: ./images/07_Suntik-SiswaJurusanTerbaik/</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Paturay Tineung Gallery Sections -->
+    <section id="paturay-tineung" class="gallery-main-section">
+        <div class="container">
+            <div class="section-header glass">
+                <i class="fas fa-celebration"></i>
+                <h2>Galeri Foto Paturay Tineung</h2>
+                <p>Dokumentasi Acara Paturay Tineung SMKS Kesehatan SDM Sumedang</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Paturay Tineung - Pembukaan -->
+    <section id="pt-pembukaan" class="gallery-section">
+        <div class="container">
+            <div class="section-subtitle glass">
+                <i class="fas fa-flag"></i>
+                <h3>Pembukaan</h3>
+            </div>
+            <div class="gallery-grid" data-category="pt-pembukaan">
+                <div class="placeholder-message">
+                    <i class="fas fa-images"></i>
+                    <p>Foto Pembukaan akan ditampilkan di sini</p>
+                    <small>Source: ./images/08_Paturay-Pembukaan/</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Paturay Tineung - Pembacaan Puisi -->
+    <section id="pt-puisi" class="gallery-section">
+        <div class="container">
+            <div class="section-subtitle glass">
+                <i class="fas fa-book-open"></i>
+                <h3>Pembacaan Puisi</h3>
+            </div>
+            <div class="gallery-grid" data-category="pt-puisi">
+                <div class="placeholder-message">
+                    <i class="fas fa-images"></i>
+                    <p>Foto Pembacaan Puisi akan ditampilkan di sini</p>
+                    <small>Source: ./images/09_Paturay-PenPuisi/</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Paturay Tineung - Prosesi Sungkem -->
+    <section id="pt-sungkem" class="gallery-section">
+        <div class="container">
+            <div class="section-subtitle glass">
+                <i class="fas fa-hands"></i>
+                <h3>Prosesi Sungkem</h3>
+            </div>
+            <div class="gallery-grid" data-category="pt-sungkem">
+                <div class="placeholder-message">
+                    <i class="fas fa-images"></i>
+                    <p>Foto Prosesi Sungkem akan ditampilkan di sini</p>
+                    <small>Source: ./images/10_Paturay-Kadedeuh/</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Paturay Tineung - Purna Tugas Kepala Sekolah -->
+    <section id="pt-purna" class="gallery-section">
+        <div class="container">
+            <div class="section-subtitle glass">
+                <i class="fas fa-user-graduate"></i>
+                <h3>Purna Tugas Kepala Sekolah</h3>
+                <p>Hj. Dewi Sugiarti, Dra., M.M.</p>
+            </div>
+            <div class="gallery-grid" data-category="pt-purna">
+                <div class="placeholder-message">
+                    <i class="fas fa-images"></i>
+                    <p>Foto Purna Tugas Kepala Sekolah akan ditampilkan di sini</p>
+                    <small>Source: ./images/11_Paturay-PurnaTugas/</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Paturay Tineung - Penghargaan Siswa -->
+    <section id="pt-penghargaan" class="gallery-section">
+        <div class="container">
+            <div class="section-subtitle glass">
+                <i class="fas fa-trophy"></i>
+                <h3>Penghargaan Siswa</h3>
+            </div>
+            <div class="gallery-grid" data-category="pt-penghargaan">
+                <div class="placeholder-message">
+                    <i class="fas fa-images"></i>
+                    <p>Foto Penghargaan Siswa akan ditampilkan di sini</p>
+                    <small>Source: ./images/12_Paturay-PenghargaanSiswa/</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Paturay Tineung - Penampilan dan Pelepasan Siswa Kelas XII -->
+    <section id="pt-pelepasan" class="gallery-section">
+        <div class="container">
+            <div class="section-subtitle glass">
+                <i class="fas fa-dove"></i>
+                <h3>Penampilan dan Pelepasan Siswa Kelas XII</h3>
+            </div>
+            <div class="gallery-grid" data-category="pt-pelepasan">
+                <div class="placeholder-message">
+                    <i class="fas fa-images"></i>
+                    <p>Foto Pelepasan Kelas XII akan ditampilkan di sini</p>
+                    <small>Source: ./images/13_Paturay-Pelepasan/</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Paturay Tineung - Penampilan Kelas X -->
+    <section id="pt-kelas-x" class="gallery-section">
+        <div class="container">
+            <div class="section-subtitle glass">
+                <i class="fas fa-theater-masks"></i>
+                <h3>Penampilan Kelas X</h3>
+            </div>
+            <div class="gallery-grid" data-category="pt-kelas-x">
+                <div class="placeholder-message">
+                    <i class="fas fa-images"></i>
+                    <p>Foto Penampilan Kelas X akan ditampilkan di sini</p>
+                    <small>Source: ./images/14_Paturay-PenampilanX/</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Paturay Tineung - Penutupan -->
+    <section id="pt-penutupan" class="gallery-section">
+        <div class="container">
+            <div class="section-subtitle glass">
+                <i class="fas fa-door-closed"></i>
+                <h3>Penutupan</h3>
+            </div>
+            <div class="gallery-grid" data-category="pt-penutupan">
+                <div class="placeholder-message">
+                    <i class="fas fa-images"></i>
+                    <p>Foto Penutupan akan ditampilkan di sini</p>
+                    <small>Source: ./images/15_Paturay-Penutupan/</small>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
-    <footer class="cyber-footer">
+    <footer class="footer glass">
         <div class="container">
-            <div class="row g-4">
-                <div class="col-lg-4 col-md-6">
-                    <div class="footer-section">
-                        <h5 class="footer-title">
-                            <i class="fas fa-school"></i> SMKS Kesehatan SDM Sumedang
-                        </h5>
-                        <p class="footer-desc">
-                            Portal resmi untuk pengecekan kelulusan siswa. 
-                            Memudahkan akses informasi status kelulusan secara online.
-                        </p>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-university"></i> SMKS Kesehatan SDM Sumedang</h3>
+                    <p>Mencetak generasi unggul, berkarakter, dan kompeten di bidang kesehatan.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Kontak Kami</h4>
+                    <div class="contact-info">
+                        <p><i class="fas fa-map-marker-alt"></i> Jl. Raya Sumedang-Kadipaten KM6 Dsn. Cicelot RT04/08 Mandalaherang, Cimalaka, Sumedang 45353</p>
+                        <p><i class="fas fa-envelope"></i> smkk.sdm@gmail.com</p>
+                        <p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/+6282126621991">Admin</a> | <a href="https://wa.me/+6285224058508">Humas</a></p>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="footer-section">
-                        <h5 class="footer-title">
-                            <i class="fas fa-address-book"></i> Contact Info
-                        </h5>
-                        <ul class="footer-links">
-                            <li>
-                                <a href="https://wa.me/+6282126621991" target="_blank">
-                                    <i class="fab fa-whatsapp"></i> WA Admin: +62 821-2662-1991
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://wa.me/+6285224058508" target="_blank">
-                                    <i class="fab fa-whatsapp"></i> WA Humas: +62 852-2405-8508
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-12">
-                    <div class="footer-section">
-                        <h5 class="footer-title">
-                            <i class="fas fa-link"></i> Tautan Resmi
-                        </h5>
-                        <ul class="footer-links">
-                            <li>
-                                <a href="https://www.smkkesehatansdm.sch.id" target="_blank">
-                                    <i class="fas fa-globe"></i> Website Resmi
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://www.instagram.com/smkksdm" target="_blank">
-                                    <i class="fab fa-instagram"></i> Instagram
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://www.tiktok.com/@smkksdm" target="_blank">
-                                    <i class="fab fa-tiktok"></i> TikTok
-                                </a>
-                            </li>
-                        </ul>
+                <div class="footer-section">
+                    <h4>Ikuti Kami</h4>
+                    <div class="social-links-footer">
+                        <a href="https://instagram.com/smkksdm" target="_blank" class="social-icon instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://tiktok.com/@smkksdm" target="_blank" class="social-icon tiktok">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
                     </div>
                 </div>
             </div>
-            
             <div class="footer-bottom">
-                <div class="row align-items-center">
-                    <div class="col-md-6 text-center text-md-start">
-                        <p class="copyright mb-0">
-                            &copy; 2024 SMKS Kesehatan SDM Sumedang. All Rights Reserved.
-                        </p>
-                    </div>
-                    <div class="col-md-6 text-center text-md-end">
-                        <p class="made-with mb-0">
-                            Made with <i class="fas fa-heart heart-beat"></i> by IT Team
-                        </p>
-                    </div>
-                </div>
+                <p>&copy; 2024 SMKS Kesehatan SDM Sumedang. All Rights Reserved.</p>
+                <p>Dibuat dengan <i class="fas fa-heart"></i> untuk almamater tercinta</p>
             </div>
         </div>
     </footer>
 
-    <!-- Bootstrap 5 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- SweetAlert2 for beautiful alerts -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <!-- Custom JS -->
+    <!-- Lightbox Modal -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose">
+            <i class="fas fa-times"></i>
+        </button>
+        <button class="lightbox-nav prev" id="lightboxPrev">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="lightbox-nav next" id="lightboxNext">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <div class="lightbox-content">
+            <img src="" alt="Gallery Image" id="lightboxImage">
+        </div>
+        <div class="lightbox-caption" id="lightboxCaption"></div>
+        <div class="lightbox-counter" id="lightboxCounter"></div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
     <script src="script.js"></script>
 </body>
 </html>

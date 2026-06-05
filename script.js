@@ -1,552 +1,443 @@
-/**
- * ========================================
- * Portal Kelulusan - SMKS Kesehatan SDM Sumedang
- * JavaScript File
- * ========================================
- * 
- * Features:
- * - DBLess system using JSON data file
- * - NIPD validation
- * - Result display with animations
- * - Error handling
- */
+/* ===================================
+   JAVASCRIPT - GALERI FOTO SEKOLAH
+   =================================== */
 
-// ========================================
-// Configuration
-// ========================================
-const CONFIG = {
-    DATA_FILE: 'data.json',
-    MIN_NIPD_LENGTH: 9,
-    MAX_NIPD_LENGTH: 9,
-    LOADING_DELAY: 1500 // ms
-};
-
-// ========================================
-// Sample Data (Fallback if JSON file not found)
-// ========================================
-const SAMPLE_DATA = [
-    {
-        "nipd": "242510001",
-        "nama": "Ahmad Fauzi",
-        "kelas": "XII TKJ 1",
-        "jurusan": "Teknik Komputer dan Jaringan",
-        "status": "LULUS",
-        "nilai_rata": "88.5",
-        "keterangan": "Dengan Predikat Memuaskan"
-    },
-    {
-        "nipd": "242510002",
-        "nama": "Siti Nurhaliza",
-        "kelas": "XII TKJ 1",
-        "jurusan": "Teknik Komputer dan Jaringan",
-        "status": "LULUS",
-        "nilai_rata": "92.3",
-        "keterangan": "Dengan Predikat Sangat Memuaskan"
-    },
-    {
-        "nipd": "242510003",
-        "nama": "Budi Santoso",
-        "kelas": "XII RPL 1",
-        "jurusan": "Rekayasa Perangkat Lunak",
-        "status": "LULUS",
-        "nilai_rata": "85.7",
-        "keterangan": "Dengan Predikat Memuaskan"
-    },
-    {
-        "nipd": "242510004",
-        "nama": "Dewi Lestari",
-        "kelas": "XII AKL 1",
-        "jurusan": "Akuntansi Keuangan Lembaga",
-        "status": "LULUS",
-        "nilai_rata": "90.1",
-        "keterangan": "Dengan Predikat Sangat Memuaskan"
-    },
-    {
-        "nipd": "242510005",
-        "nama": "Eko Prasetyo",
-        "kelas": "XII TKJ 2",
-        "jurusan": "Teknik Komputer dan Jaringan",
-        "status": "LULUS",
-        "nilai_rata": "87.9",
-        "keterangan": "Dengan Predikat Memuaskan"
-    }
-];
-
-// ========================================
-// Global Variables
-// ========================================
-let studentData = [];
-let isLoading = false;
-
-// ========================================
-// DOM Elements
-// ========================================
-const elements = {
-    form: null,
-    nipdInput: null,
-    loadingIndicator: null,
-    resultDisplay: null,
-    errorDisplay: null,
-    resultContent: null,
-    errorMessage: null
-};
-
-// ========================================
-// Initialize Application
-// ========================================
-document.addEventListener('DOMContentLoaded', () => {
-    initializeElements();
-    initializeEventListeners();
-    loadStudentData();
-});
-
-/**
- * Initialize DOM element references
- */
-function initializeElements() {
-    elements.form = document.getElementById('graduationForm');
-    elements.nipdInput = document.getElementById('nipdInput');
-    elements.loadingIndicator = document.getElementById('loadingIndicator');
-    elements.resultDisplay = document.getElementById('resultDisplay');
-    elements.errorDisplay = document.getElementById('errorDisplay');
-    elements.resultContent = document.getElementById('resultContent');
-    elements.errorMessage = document.getElementById('errorMessage');
-}
-
-/**
- * Initialize event listeners
- */
-function initializeEventListeners() {
-    // Form submission
-    if (elements.form) {
-        elements.form.addEventListener('submit', handleFormSubmit);
-    }
-    
-    // Input validation on typing
-    if (elements.nipdInput) {
-        elements.nipdInput.addEventListener('input', handleNipdInput);
-        elements.nipdInput.addEventListener('keypress', handleNumericOnly);
-    }
-}
-
-/**
- * Load student data from JSON file
- */
-async function loadStudentData() {
-    try {
-        const response = await fetch(CONFIG.DATA_FILE);
-        
-        if (!response.ok) {
-            throw new Error('Failed to load data file');
-        }
-        
-        studentData = await response.json();
-        console.log('✅ Data loaded successfully:', studentData.length, 'students');
-        
-    } catch (error) {
-        console.warn('⚠️ Using sample data (JSON file not found):', error.message);
-        studentData = SAMPLE_DATA;
-    }
-}
-
-/**
- * Handle NIPD input - only allow numbers
- */
-function handleNumericOnly(event) {
-    const charCode = event.which ? event.which : event.keyCode;
-    
-    // Allow numbers (48-57), backspace (8), delete (46), tab (9), arrow keys
-    if (charCode > 31 && (charCode < 48 || charCode > 57) && 
-        ![8, 9, 46, 37, 38, 39, 40].includes(charCode)) {
-        event.preventDefault();
-        return false;
-    }
-}
-
-/**
- * Handle NIPD input formatting
- */
-function handleNipdInput(event) {
-    const input = event.target;
-    let value = input.value;
-    
-    // Remove non-numeric characters
-    value = value.replace(/[^0-9]/g, '');
-    
-    // Limit to max length
-    if (value.length > CONFIG.MAX_NIPD_LENGTH) {
-        value = value.substring(0, CONFIG.MAX_NIPD_LENGTH);
-    }
-    
-    input.value = value;
-    
-    // Hide previous results when user starts typing
-    hideResults();
-    hideError();
-}
-
-/**
- * Handle form submission
- */
-async function handleFormSubmit(event) {
-    event.preventDefault();
-    
-    const nipd = elements.nipdInput.value.trim();
-    
-    // Validate NIPD
-    if (!validateNipd(nipd)) {
-        showError('NIPD harus terdiri dari 9 digit angka!');
-        return;
-    }
-    
-    // Check if already loading
-    if (isLoading) {
-        return;
-    }
-    
-    // Start loading
-    startLoading();
-    
-    // Simulate network delay for better UX
-    await sleep(CONFIG.LOADING_DELAY);
-    
-    // Search for student
-    const student = findStudentByNipd(nipd);
-    
-    // Stop loading
-    stopLoading();
-    
-    // Display result
-    if (student) {
-        displayResult(student);
-    } else {
-        showError('Data siswa dengan NIPD ' + nipd + ' tidak ditemukan. Silahkan periksa kembali NIPD Anda atau hubungi admin.');
-    }
-}
-
-/**
- * Validate NIPD format
- */
-function validateNipd(nipd) {
-    if (!nipd) return false;
-    if (nipd.length !== CONFIG.MIN_NIPD_LENGTH) return false;
-    if (!/^\d{9}$/.test(nipd)) return false;
-    return true;
-}
-
-/**
- * Find student by NIPD
- */
-function findStudentByNipd(nipd) {
-    return studentData.find(student => student.nipd === nipd);
-}
-
-/**
- * Display search result
- */
-function displayResult(student) {
-    const isGraduated = student.status.toUpperCase() === 'LULUS';
-    const statusColor = isGraduated ? '#00ff41' : '#ff003c';
-    const statusGlow = isGraduated ? 
-        '0 0 10px rgba(0, 255, 65, 0.7), 0 0 20px rgba(0, 255, 65, 0.5)' :
-        '0 0 10px rgba(255, 0, 60, 0.7), 0 0 20px rgba(255, 0, 60, 0.5)';
-    
-    const html = `
-        <div class="student-info">
-            <div class="info-item">
-                <div class="info-label"><i class="fas fa-id-card"></i> NIPD</div>
-                <div class="info-value">${formatNipd(student.nipd)}</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label"><i class="fas fa-user"></i> Nama Siswa</div>
-                <div class="info-value">${student.nama}</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label"><i class="fas fa-chalkboard-teacher"></i> Kelas</div>
-                <div class="info-value">${student.kelas}</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label"><i class="fas fa-graduation-cap"></i> Jurusan</div>
-                <div class="info-value">${student.jurusan}</div>
-            </div>
-            ${student.nilai_rata ? `
-            <div class="info-item">
-                <div class="info-label"><i class="fas fa-star"></i> Nilai Rata-rata</div>
-                <div class="info-value">${student.nilai_rata}</div>
-            </div>
-            ` : ''}
-        </div>
-        
-        <div class="graduation-status">
-            <p style="margin-bottom: 0.5rem; font-size: 1.1rem;">Status Kelulusan:</p>
-            <div class="status-badge" style="color: ${statusColor}; text-shadow: ${statusGlow};">
-                <i class="fas ${isGraduated ? 'fa-check-circle' : 'fa-times-circle'}"></i>
-                ${student.status}
-            </div>
-            ${student.keterangan ? `
-            <p style="margin-top: 1rem; color: ${statusColor}; font-size: 1rem;">
-                ${student.keterangan}
-            </p>
-            ` : ''}
-        </div>
-        
-        <div style="margin-top: 1.5rem; text-align: center;">
-            <button onclick="printResult()" class="btn cyber-btn" style="font-size: 1rem; padding: 0.75rem 1.5rem;">
-                <i class="fas fa-print"></i> Cetak Hasil
-            </button>
-            <button onclick="resetSearch()" class="btn cyber-btn" style="font-size: 1rem; padding: 0.75rem 1.5rem; margin-left: 0.5rem; background: linear-gradient(135deg, #ff00ff 0%, #9d00ff 100%);">
-                <i class="fas fa-redo"></i> Cek Lagi
-            </button>
-        </div>
-    `;
-    
-    elements.resultContent.innerHTML = html;
-    elements.resultDisplay.classList.remove('d-none');
-    
-    // Scroll to result
-    setTimeout(() => {
-        elements.resultDisplay.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }, 100);
-}
-
-/**
- * Show error message
- */
-function showError(message) {
-    elements.errorMessage.textContent = message;
-    elements.errorDisplay.classList.remove('d-none');
-    
-    // Hide after 5 seconds
-    setTimeout(() => {
-        hideError();
-    }, 5000);
-}
-
-/**
- * Hide error message
- */
-function hideError() {
-    elements.errorDisplay.classList.add('d-none');
-}
-
-/**
- * Hide results
- */
-function hideResults() {
-    elements.resultDisplay.classList.add('d-none');
-}
-
-/**
- * Start loading state
- */
-function startLoading() {
-    isLoading = true;
-    elements.loadingIndicator.classList.remove('d-none');
-    elements.form.querySelector('button[type="submit"]').disabled = true;
-    elements.nipdInput.disabled = true;
-}
-
-/**
- * Stop loading state
- */
-function stopLoading() {
-    isLoading = false;
-    elements.loadingIndicator.classList.add('d-none');
-    elements.form.querySelector('button[type="submit"]').disabled = false;
-    elements.nipdInput.disabled = false;
-    elements.nipdInput.focus();
-}
-
-/**
- * Reset search form
- */
-function resetSearch() {
-    elements.nipdInput.value = '';
-    hideResults();
-    hideError();
-    elements.nipdInput.focus();
-}
-
-/**
- * Print result
- */
-function printResult() {
-    window.print();
-}
-
-/**
- * Format NIPD with dashes (optional)
- */
-function formatNipd(nipd) {
-    // You can customize the format here
-    // Example: 242-510-001
-    return nipd;
-}
-
-/**
- * Sleep utility function
- */
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-/**
- * SweetAlert2 integration for beautiful alerts
- */
-function showSuccessAlert(message) {
-    if (typeof Swal !== 'undefined') {
-        Swal.fire({
-            title: 'Berhasil!',
-            text: message,
-            icon: 'success',
-            confirmButtonText: 'OK',
-            background: 'rgba(10, 10, 15, 0.95)',
-            color: '#e0e0e0',
-            confirmButtonColor: '#00ffff',
-            backdrop: `
-                rgba(0, 0, 0, 0.8)
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M0 50 Q 25 25, 50 50 T 100 50' stroke='rgba(0, 255, 255, 0.1)' fill='none'/%3E%3C/svg%3E")
-                left top
-                no-repeat
-            `
-        });
-    }
-}
-
-/**
- * Show info alert
- */
-function showInfoAlert(message) {
-    if (typeof Swal !== 'undefined') {
-        Swal.fire({
-            title: 'Informasi',
-            text: message,
-            icon: 'info',
-            confirmButtonText: 'Mengerti',
-            background: 'rgba(10, 10, 15, 0.95)',
-            color: '#e0e0e0',
-            confirmButtonColor: '#00ffff'
-        });
-    }
-}
-
-// ========================================
-// Utility Functions
-// ========================================
-
-/**
- * Debounce function for performance
- */
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
-/**
- * Throttle function for performance
- */
-function throttle(func, limit) {
-    let inThrottle;
-    return function(...args) {
-        if (!inThrottle) {
-            func.apply(this, args);
-            inThrottle = true;
-            setTimeout(() => inThrottle = false, limit);
-        }
-    };
-}
-
-/**
- * Log with timestamp
- */
-function log(message, type = 'info') {
-    const timestamp = new Date().toLocaleTimeString();
-    const prefix = type === 'error' ? '❌' : type === 'warn' ? '⚠️' : '✅';
-    console.log(`${prefix} [${timestamp}] ${message}`);
-}
-
-/**
- * Export data to CSV (for admin use)
- */
-function exportToCSV() {
-    if (studentData.length === 0) {
-        console.warn('No data to export');
-        return;
-    }
-    
-    const headers = Object.keys(studentData[0]);
-    const csv = [
-        headers.join(','),
-        ...studentData.map(row => 
-            headers.map(fieldName => 
-                JSON.stringify(row[fieldName], (key, value) => value === null ? '' : value)
-            ).join(',')
-        )
-    ].join('\r\n');
-    
-    const blob = new Blob([csv], { type: 'text/csv' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.setAttribute('hidden', '');
-    a.setAttribute('href', url);
-    a.setAttribute('download', 'data_kelulusan.csv');
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-}
-
-// Make functions available globally
-window.resetSearch = resetSearch;
-window.printResult = printResult;
-window.exportToCSV = exportToCSV;
-
-/**
- * ========================================
- * HTML5 Audio Autoplay Handler
- * ========================================
- * Browser modern memblokir autoplay dengan suara.
- * Solusi: Start muted, lalu unmute saat user interaksi pertama.
- */
 document.addEventListener('DOMContentLoaded', function() {
-    const audio = document.getElementById('bgMusic');
     
-    if (audio) {
-        // Coba play langsung (akan berhasil jika browser mengizinkan)
-        audio.play().catch(e => {
-            console.log('⚠️ Autoplay diblokir browser, menunggu interaksi user...');
-        });
-        
-        // Unmute saat user interaksi pertama (klik, touch, keypress, scroll)
-        const enableAudio = () => {
-            if (audio.muted) {
-                audio.muted = false;
-                audio.volume = 0.5; // Set volume 50%
-                console.log('🔊 Audio enabled - Background music playing!');
-                
-                // Hapus semua listener setelah audio aktif
-                document.removeEventListener('click', enableAudio);
-                document.removeEventListener('touchstart', enableAudio);
-                document.removeEventListener('keydown', enableAudio);
-                document.removeEventListener('scroll', enableAudio);
-            }
-        };
-        
-        // Tambahkan listener untuk interaksi user
-        document.addEventListener('click', enableAudio);
-        document.addEventListener('touchstart', enableAudio);
-        document.addEventListener('keydown', enableAudio);
-        document.addEventListener('scroll', enableAudio);
-        
-        console.log('🎵 HTML5 Audio player initialized with autoplay (muted until user interaction)');
-    }
-});
+    // ===================================
+    // CONFIGURATION - GALLERY DATA
+    // ===================================
+    const galleryConfig = {
+        'sl-mockup': {
+            folder: '01_Suntik-Intro',
+            start: 1,
+            end: 23,
+            prefix: '01_Suntik-Intro_'
+        },
+        'sl-pembukaan': {
+            folder: '02_Suntik-Pembukaan',
+            start: 1,
+            end: 64,
+            prefix: '02_Suntik-Pembukaan_'
+        },
+        'sl-prosesi': {
+            folder: '03_Suntik-AngkatSumpah',
+            start: 1,
+            end: 36,
+            prefix: '03_Suntik-AngkatSumpah_'
+        },
+        'sl-raport': {
+            folder: '04_Suntik-PembRaportKalung',
+            start: 1,
+            end: 98,
+            prefix: '04_Suntik-PembRaportKalung_'
+        },
+        'sl-penutupan': {
+            folder: '05_Suntik-Penutup',
+            start: 1,
+            end: 31,
+            prefix: '05_Suntik-Penutup_'
+        },
+        'sl-foto': {
+            folder: '06_Suntik-FotoBersama',
+            start: 1,
+            end: 16,
+            prefix: '06_Suntik-FotoBersama_'
+        },
+        'sl-penampilan': {
+            folder: '07_Suntik-SiswaJurusanTerbaik',
+            start: 1,
+            end: 18,
+            prefix: '07_Suntik-SiswaJurusanTerbaik_'
+        },
+        'pt-pembukaan': {
+            folder: '08_Paturay-Pembukaan',
+            start: 1,
+            end: 24,
+            prefix: '08_Paturay-Pembukaan_'
+        },
+        'pt-puisi': {
+            folder: '09_Paturay-PenPuisi',
+            start: 1,
+            end: 41,
+            prefix: '09_Paturay-PenPuisi_'
+        },
+        'pt-sungkem': {
+            folder: '10_Paturay-Kadedeuh',
+            start: 1,
+            end: 58,
+            prefix: '10_Paturay-Kadedeuh_'
+        },
+        'pt-purna': {
+            folder: '11_Paturay-PurnaTugas',
+            start: 1,
+            end: 104,
+            prefix: '11_Paturay-PurnaTugas_'
+        },
+        'pt-penghargaan': {
+            folder: '12_Paturay-PenghargaanSiswa',
+            start: 1,
+            end: 30,
+            prefix: '12_Paturay-PenghargaanSiswa_'
+        },
+        'pt-pelepasan': {
+            folder: '13_Paturay-Pelepasan',
+            start: 1,
+            end: 61,
+            prefix: '13_Paturay-Pelepasan_'
+        },
+        'pt-kelas-x': {
+            folder: '14_Paturay-PenampilanX',
+            start: 1,
+            end: 50,
+            prefix: '14_Paturay-PenampilanX_'
+        },
+        'pt-penutupan': {
+            folder: '15_Paturay-Penutupan',
+            start: 1,
+            end: 33,
+            prefix: '15_Paturay-Penutupan_'
+        }
+    };
 
-console.log('🚀 Portal Kelulusan initialized successfully!');
-console.log('📊 Loaded', studentData.length, 'student records');
+    // ===================================
+    // NAVIGATION FUNCTIONALITY
+    // ===================================
+    const navbar = document.querySelector('.navbar');
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const dropdowns = document.querySelectorAll('.dropdown');
+
+    // Scroll effect for navbar
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+
+    // Hamburger menu toggle
+    hamburger.addEventListener('click', function() {
+        navMenu.classList.toggle('active');
+        hamburger.classList.toggle('active');
+    });
+
+    // Close mobile menu when clicking on a link
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            navMenu.classList.remove('active');
+            hamburger.classList.remove('active');
+        });
+    });
+
+    // Mobile dropdown toggle
+    dropdowns.forEach(dropdown => {
+        const toggle = dropdown.querySelector('.dropdown-toggle');
+        toggle.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
+                dropdown.classList.toggle('active');
+            }
+        });
+    });
+
+    // Active navigation highlight on scroll
+    const sections = document.querySelectorAll('section[id]');
+    
+    function highlightNavigation() {
+        const scrollY = window.pageYOffset;
+
+        sections.forEach(section => {
+            const sectionHeight = section.offsetHeight;
+            const sectionTop = section.offsetTop - 100;
+            const sectionId = section.getAttribute('id');
+            const navLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
+
+            if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                navLinks.forEach(link => link.classList.remove('active'));
+                if (navLink) {
+                    navLink.classList.add('active');
+                }
+            }
+        });
+    }
+
+    window.addEventListener('scroll', highlightNavigation);
+
+    // ===================================
+    // LIGHTBOX FUNCTIONALITY
+    // ===================================
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const lightboxCaption = document.getElementById('lightboxCaption');
+    const lightboxCounter = document.getElementById('lightboxCounter');
+    const lightboxClose = document.getElementById('lightboxClose');
+    const lightboxPrev = document.getElementById('lightboxPrev');
+    const lightboxNext = document.getElementById('lightboxNext');
+
+    let currentImages = [];
+    let currentIndex = 0;
+
+    function openLightbox(images, index) {
+        currentImages = images;
+        currentIndex = index;
+        updateLightbox();
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    function updateLightbox() {
+        if (currentImages.length > 0) {
+            lightboxImage.src = currentImages[currentIndex].src;
+            lightboxCaption.textContent = currentImages[currentIndex].caption || `Foto ${currentIndex + 1}`;
+            lightboxCounter.textContent = `${currentIndex + 1} / ${currentImages.length}`;
+        }
+    }
+
+    function showPrevious() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateLightbox();
+        }
+    }
+
+    function showNext() {
+        if (currentIndex < currentImages.length - 1) {
+            currentIndex++;
+            updateLightbox();
+        }
+    }
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightboxPrev.addEventListener('click', showPrevious);
+    lightboxNext.addEventListener('click', showNext);
+
+    // Close lightbox when clicking outside the image
+    lightbox.addEventListener('click', function(e) {
+        if (e.target === lightbox || e.target.classList.contains('lightbox-content')) {
+            closeLightbox();
+        }
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+        if (!lightbox.classList.contains('active')) return;
+
+        if (e.key === 'Escape') {
+            closeLightbox();
+        } else if (e.key === 'ArrowLeft') {
+            showPrevious();
+        } else if (e.key === 'ArrowRight') {
+            showNext();
+        }
+    });
+
+    // ===================================
+    // LOAD GALLERY IMAGES
+    // ===================================
+    function loadGalleryImages() {
+        Object.keys(galleryConfig).forEach(category => {
+            const grid = document.querySelector(`[data-category="${category}"]`);
+            if (!grid) return;
+
+            const config = galleryConfig[category];
+            const placeholder = grid.querySelector('.placeholder-message');
+            
+            // Clear placeholder if exists
+            if (placeholder) {
+                placeholder.remove();
+            }
+
+            // Generate image elements
+            for (let i = config.start; i <= config.end; i++) {
+                const paddedNumber = String(i).padStart(2, '0');
+                const imageName = `${config.prefix}${paddedNumber}.jpg`;
+                const imagePath = `./images/${config.folder}/${imageName}`;
+
+                const galleryItem = document.createElement('div');
+                galleryItem.className = 'gallery-item fade-in';
+                galleryItem.style.animationDelay = `${(i - config.start) * 0.05}s`;
+
+                const img = document.createElement('img');
+                img.src = imagePath;
+                img.alt = `Foto ${i}`;
+                img.loading = 'lazy';
+                
+                // Handle image load error
+                img.onerror = function() {
+                    this.parentElement.style.display = 'none';
+                };
+
+                const overlay = document.createElement('div');
+                overlay.className = 'gallery-overlay';
+                overlay.innerHTML = `<p>Foto ${i}</p>`;
+
+                galleryItem.appendChild(img);
+                galleryItem.appendChild(overlay);
+                grid.appendChild(galleryItem);
+
+                // Add click event for lightbox
+                galleryItem.addEventListener('click', function() {
+                    const images = Array.from(grid.querySelectorAll('.gallery-item img'))
+                        .map(img => ({
+                            src: img.src,
+                            caption: img.alt
+                        }));
+                    const index = Array.from(grid.querySelectorAll('.gallery-item')).indexOf(galleryItem);
+                    openLightbox(images, index);
+                });
+            }
+        });
+    }
+
+    // Load gallery images on page load
+    loadGalleryImages();
+
+    // ===================================
+    // BACK TO TOP BUTTON
+    // ===================================
+    const backToTop = document.getElementById('backToTop');
+
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 500) {
+            backToTop.classList.add('visible');
+        } else {
+            backToTop.classList.remove('visible');
+        }
+    });
+
+    backToTop.addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
+    // ===================================
+    // SMOOTH SCROLL FOR ANCHOR LINKS
+    // ===================================
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href !== '#') {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    const offsetTop = target.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    });
+
+    // ===================================
+    // INTERSECTION OBSERVER FOR ANIMATIONS
+    // ===================================
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('fade-in');
+            }
+        });
+    }, observerOptions);
+
+    // Observe gallery sections
+    document.querySelectorAll('.gallery-section').forEach(section => {
+        observer.observe(section);
+    });
+
+    // ===================================
+    // PARALLAX EFFECT FOR BACKGROUND
+    // ===================================
+    window.addEventListener('scroll', function() {
+        const scrolled = window.pageYOffset;
+        const circles = document.querySelectorAll('.bg-animation .circle');
+        
+        circles.forEach((circle, index) => {
+            const speed = (index + 1) * 0.05;
+            circle.style.transform = `translateY(${scrolled * speed}px)`;
+        });
+    });
+
+    // ===================================
+    // LAZY LOADING OPTIMIZATION
+    // ===================================
+    if ('loading' in HTMLImageElement.prototype) {
+        const images = document.querySelectorAll('img[loading="lazy"]');
+        images.forEach(img => {
+            img.src = img.src;
+        });
+    } else {
+        // Fallback for browsers that don't support lazy loading
+        const script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js';
+        document.body.appendChild(script);
+    }
+
+    // ===================================
+    // PRELOADER (Optional)
+    // ===================================
+    window.addEventListener('load', function() {
+        document.body.classList.add('loaded');
+        
+        // Add animation to hero content
+        const heroContent = document.querySelector('.hero-content');
+        if (heroContent) {
+            heroContent.classList.add('fade-in');
+        }
+    });
+
+    // ===================================
+    // TOUCH SWIPE SUPPORT FOR LIGHTBOX
+    // ===================================
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    lightbox.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].screenX;
+    }, false);
+
+    lightbox.addEventListener('touchend', function(e) {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }, false);
+
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        const diff = touchStartX - touchEndX;
+
+        if (Math.abs(diff) > swipeThreshold) {
+            if (diff > 0) {
+                // Swipe left - next image
+                showNext();
+            } else {
+                // Swipe right - previous image
+                showPrevious();
+            }
+        }
+    }
+
+    // ===================================
+    // CONSOLE LOG FOR DEBUGGING
+    // ===================================
+    console.log('%c🎓 SMKS Kesehatan SDM Sumedang - Galeri Foto', 'color: #6366f1; font-size: 20px; font-weight: bold;');
+    console.log('%cGaleri foto interaktif dengan tema Glassmorphism', 'color: #8b5cf6; font-size: 14px;');
+    console.log('%cTotal kategori galeri:', 'color: #ec4899;', Object.keys(galleryConfig).length);
+    console.log('%cSilakan tambahkan file foto ke folder ./images/', 'color: #4facfe; font-style: italic;');
+
+});
